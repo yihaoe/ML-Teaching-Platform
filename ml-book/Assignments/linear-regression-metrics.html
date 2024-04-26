@@ -1,0 +1,912 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>4. Linear Regression Metrics &#8212; ML-book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'ml-book/Assignments/linear-regression-metrics';</script>
+    <link rel="canonical" href="https://yihaoe.github.io/ml-book/ml-book/Assignments/linear-regression-metrics.html" />
+    <link rel="icon" href="../../_static/fav.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="5. Loss Function" href="loss-function.html" />
+    <link rel="prev" title="3. Gradient descent" href="../Parameter-Optimization/gradient-descent.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="ML-book - Home"/>
+    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="ML-book - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Regression Models</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Regression-Models/Univariate-linear-regression.html">1. Univariate linear regression</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Parameter Optimization</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Parameter-Optimization/loss-function.html">2. Loss function</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Parameter-Optimization/gradient-descent.html">3. Gradient descent</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">assignment</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">4. Linear Regression Metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="loss-function.html">5. Loss Function</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gradient-descent.html">6. Gradient descent</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/yihaoe/ml-book/master?urlpath=tree/ml-book/Assignments/linear-regression-metrics.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onBinder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../../_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/yihaoe/ml-book/blob/master/ml-book/Assignments/linear-regression-metrics.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onColab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/yihaoe/ml-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/yihaoe/ml-book/edit/main/ml-book/Assignments/linear-regression-metrics.ipynb" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/yihaoe/ml-book/issues/new?title=Issue%20on%20page%20%2Fml-book/Assignments/linear-regression-metrics.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/ml-book/Assignments/linear-regression-metrics.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Linear Regression Metrics</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-squared-error-mse">4.1. Mean Squared Error (MSE)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-formula">4.1.1. The Formula</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation">4.1.2. Interpretation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#python-implementation">4.1.3. Python Implementation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#root-mean-squared-error-rmse">4.2. Root Mean Squared Error (RMSE)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">4.2.1. The Formula</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">4.2.2. Python Implementation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#r-squared-r2-score">4.3. R-squared (R2) Score</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">4.3.1. The Formula</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">4.3.2. Python Implementation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#residual-analysis">4.4. Residual Analysis</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">4.4.1. Python Implementation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">4.4.2. Interpretation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-absolute-error-mae">4.5. Mean Absolute Error (MAE)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">4.5.1. The Formula</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">4.5.2. Python Implementation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">4.5.3. Interpretation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-absolute-percentage-error-mape">4.6. Mean Absolute Percentage Error (MAPE)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">4.6.1. The Formula</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">4.6.2. Interpretation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion-and-recap">4.7. Conclusion and Recap</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="linear-regression-metrics">
+<h1><span class="section-number">4. </span>Linear Regression Metrics<a class="headerlink" href="#linear-regression-metrics" title="Link to this heading">#</a></h1>
+<p>Linear regression is a fundamental and widely used technique in machine learning and statistics for predicting continuous values based on input variables. It finds its application in various domains, from finance and economics to healthcare and engineering. When using linear regression, it’s essential to assess the model’s performance accurately. This is where linear regression metrics come into play.</p>
+<p>In this tutorial, we will delve into the world of linear regression metrics, exploring the key evaluation measures that allow us to gauge how well a linear regression model fits the data and makes predictions. These metrics provide valuable insights into the model’s accuracy, precision, and ability to capture the underlying relationships between variables.</p>
+<p>We will cover essential concepts such as Mean Squared Error (MSE), Root Mean Squared Error (RMSE), R-squared (R2) score, and Mean Absolute Error (MAE). Understanding these metrics is crucial for data scientists, machine learning practitioners, and anyone looking to harness the power of linear regression for predictive modeling.</p>
+<p>Whether you are building models for price predictions, sales forecasts, or any other regression task, mastering these metrics will empower you to make informed decisions and fine-tune your models for optimal performance. Let’s embark on this journey to explore the intricacies of linear regression metrics and enhance our ability to assess and improve regression models.</p>
+<section id="mean-squared-error-mse">
+<h2><span class="section-number">4.1. </span>Mean Squared Error (MSE)<a class="headerlink" href="#mean-squared-error-mse" title="Link to this heading">#</a></h2>
+<p>In the realm of linear regression metrics, one fundamental measure of model performance is the <strong>Mean Squared Error (MSE)</strong>. MSE serves as a valuable indicator of how well your linear regression model aligns its predictions with the actual data points. This metric quantifies the average of the squared differences between predicted values and observed values.</p>
+<section id="the-formula">
+<h3><span class="section-number">4.1.1. </span>The Formula<a class="headerlink" href="#the-formula" title="Link to this heading">#</a></h3>
+<p>Mathematically, the MSE is computed using the following formula:</p>
+<div class="math notranslate nohighlight">
+\[ MSE = \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 \]</div>
+<p>Where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(n\)</span> is the number of data points.</p></li>
+<li><p><span class="math notranslate nohighlight">\(y_i\)</span> represents the actual observed value for the <span class="math notranslate nohighlight">\(i^{th}\)</span> data point.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\hat{y}_i\)</span> represents the predicted value for the <span class="math notranslate nohighlight">\(i^{th}\)</span> data point.</p></li>
+</ul>
+</section>
+<section id="interpretation">
+<h3><span class="section-number">4.1.2. </span>Interpretation<a class="headerlink" href="#interpretation" title="Link to this heading">#</a></h3>
+<p>A lower MSE value indicates that the model’s predictions are closer to the actual values, signifying better model performance. Conversely, a higher MSE suggests that the model’s predictions deviate more from the true values, indicating poorer performance.</p>
+</section>
+<section id="python-implementation">
+<h3><span class="section-number">4.1.3. </span>Python Implementation<a class="headerlink" href="#python-implementation" title="Link to this heading">#</a></h3>
+<p>Let’s take a look at how to calculate MSE in Python. We’ll use a simple example with sample data:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import necessary libraries</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># Sample data for demonstration (replace with your actual data)</span>
+<span class="n">actual_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">22.1</span><span class="p">,</span> <span class="mf">19.9</span><span class="p">,</span> <span class="mf">24.5</span><span class="p">,</span> <span class="mf">20.1</span><span class="p">,</span> <span class="mf">18.7</span><span class="p">])</span>
+<span class="n">predicted_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">23.5</span><span class="p">,</span> <span class="mf">20.2</span><span class="p">,</span> <span class="mf">23.9</span><span class="p">,</span> <span class="mf">19.8</span><span class="p">,</span> <span class="mf">18.5</span><span class="p">])</span>
+
+<span class="c1"># Calculate the squared differences between actual and predicted values</span>
+<span class="n">squared_errors</span> <span class="o">=</span> <span class="p">(</span><span class="n">actual_values</span> <span class="o">-</span> <span class="n">predicted_values</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+
+<span class="c1"># Calculate the mean of squared errors to get MSE</span>
+<span class="n">mse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">squared_errors</span><span class="p">)</span>
+
+<span class="c1"># Print the MSE</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mean Squared Error (MSE):&quot;</span><span class="p">,</span> <span class="n">mse</span><span class="p">)</span> 
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mean Squared Error (MSE): 0.5079999999999996
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="root-mean-squared-error-rmse">
+<h2><span class="section-number">4.2. </span>Root Mean Squared Error (RMSE)<a class="headerlink" href="#root-mean-squared-error-rmse" title="Link to this heading">#</a></h2>
+<p>The Root Mean Squared Error (RMSE) is another important metric for evaluating the performance of a linear regression model. It is the square root of the Mean Squared Error (MSE) and provides a measure of the average magnitude of error between actual and predicted values.</p>
+<section id="id1">
+<h3><span class="section-number">4.2.1. </span>The Formula<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p>The formula for RMSE is:</p>
+<div class="math notranslate nohighlight">
+\[ RMSE = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2} \]</div>
+<p>Where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(n\)</span> is the number of data points</p></li>
+<li><p><span class="math notranslate nohighlight">\(y_i \)</span> represents the actual value of the dependent variable</p></li>
+<li><p><span class="math notranslate nohighlight">\( \hat{y}_i \)</span> represents the predicted value of the dependent variable</p></li>
+</ul>
+</section>
+<section id="id2">
+<h3><span class="section-number">4.2.2. </span>Python Implementation<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate RMSE</span>
+<span class="n">rmse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mse</span><span class="p">)</span>
+
+<span class="c1"># Print the RMSE</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Root Mean Squared Error (RMSE):&quot;</span><span class="p">,</span> <span class="n">rmse</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Root Mean Squared Error (RMSE): 0.7127411872482181
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="r-squared-r2-score">
+<h2><span class="section-number">4.3. </span>R-squared (R2) Score<a class="headerlink" href="#r-squared-r2-score" title="Link to this heading">#</a></h2>
+<p>The R-squared (R2) score, also known as the coefficient of determination, is a measure that indicates the proportion of the variance in the dependent variable that is predictable from the independent variables. It provides insight into how well the model is performing compared to a simple mean.</p>
+<section id="id3">
+<h3><span class="section-number">4.3.1. </span>The Formula<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>The formula for R2 score is:</p>
+<div class="math notranslate nohighlight">
+\[ R^2 = 1 - \frac{\sum_{i=1}^{n} (y_i - \hat{y}_i)^2}{\sum_{i=1}^{n} (y_i - \bar{y})^2} \]</div>
+<p>Where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( n \)</span> is the number of data points</p></li>
+<li><p><span class="math notranslate nohighlight">\( y_i \)</span> represents the actual value of the dependent variable</p></li>
+<li><p><span class="math notranslate nohighlight">\( \hat{y}_i \)</span> represents the predicted value of the dependent variable</p></li>
+<li><p><span class="math notranslate nohighlight">\( \bar{y} \)</span> is the mean of the dependent variable</p></li>
+</ul>
+</section>
+<section id="id4">
+<h3><span class="section-number">4.3.2. </span>Python Implementation<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate the mean of actual values</span>
+<span class="n">mean_actual</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">actual_values</span><span class="p">)</span>
+
+<span class="c1"># Calculate the total sum of squares</span>
+<span class="n">total_sum_squares</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">actual_values</span> <span class="o">-</span> <span class="n">mean_actual</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Calculate the residual sum of squares</span>
+<span class="n">residual_sum_squares</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">squared_errors</span><span class="p">)</span>
+
+<span class="c1"># Calculate R2 score</span>
+<span class="n">r2_score</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="n">residual_sum_squares</span> <span class="o">/</span> <span class="n">total_sum_squares</span><span class="p">)</span>
+
+<span class="c1"># Print the R2 score</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;R-squared (R2) Score:&quot;</span><span class="p">,</span> <span class="n">r2_score</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>R-squared (R2) Score: 0.8776021588280649
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="residual-analysis">
+<h2><span class="section-number">4.4. </span>Residual Analysis<a class="headerlink" href="#residual-analysis" title="Link to this heading">#</a></h2>
+<p>Residual analysis is a critical step in evaluating the performance of a linear regression model. It involves examining the differences between the observed and predicted values (i.e., the residuals). This helps us understand if there are any patterns or trends that the model might have missed.</p>
+<section id="id5">
+<h3><span class="section-number">4.4.1. </span>Python Implementation<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">In this code, we first calculate the residuals by subtracting the predicted values from the actual values. Then, we create a scatter plot of predicted values against residuals. The red dashed line at y=0 is a reference line; ideally, we want the residuals to be evenly distributed around this line.</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="c1"># Calculate residuals</span>
+<span class="n">residuals</span> <span class="o">=</span> <span class="n">actual_values</span> <span class="o">-</span> <span class="n">predicted_values</span>
+
+<span class="c1"># Plotting residuals</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">predicted_values</span><span class="p">,</span> <span class="n">residuals</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Residual Plot&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Predicted Values&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Residuals&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/7e997b3ad4f21b95429212e65841cd37b4f327fd4f6a16997fe29a4fd5d38666.png" src="../../_images/7e997b3ad4f21b95429212e65841cd37b4f327fd4f6a16997fe29a4fd5d38666.png" />
+</div>
+</div>
+</section>
+<section id="id6">
+<h3><span class="section-number">4.4.2. </span>Interpretation<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<p>If the residuals are randomly scattered around the red line, it suggests that the model is capturing the underlying patterns in the data well.
+If there’s a clear pattern in the residuals (e.g., a curve or a trend), it indicates that the model might be missing some important features.
+Residual analysis is a crucial step in understanding the limitations of the model and can provide insights into potential areas of improvement.</p>
+</section>
+</section>
+<section id="mean-absolute-error-mae">
+<h2><span class="section-number">4.5. </span>Mean Absolute Error (MAE)<a class="headerlink" href="#mean-absolute-error-mae" title="Link to this heading">#</a></h2>
+<p>The Mean Absolute Error (MAE) is a metric that measures the average absolute differences between actual and predicted values. Unlike MSE, MAE does not square the differences, which makes it less sensitive to outliers.</p>
+<section id="id7">
+<h3><span class="section-number">4.5.1. </span>The Formula<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<p>The formula for Mean Absolute Errord is:
+$<span class="math notranslate nohighlight">\( MAE = \frac{1}{n} \sum_{i=1}^{n} |y_i - \hat{y}_i| \)</span>$
+Where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( n \)</span> is the number of data points</p></li>
+<li><p><span class="math notranslate nohighlight">\( y_i \)</span> represents the actual value of the dependent variable</p></li>
+<li><p><span class="math notranslate nohighlight">\( \hat{y}_i \)</span> represents the predicted value of the dependent variable</p></li>
+</ul>
+</section>
+<section id="id8">
+<h3><span class="section-number">4.5.2. </span>Python Implementation<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate absolute differences between actual and predicted values</span>
+<span class="n">absolute_errors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">actual_values</span> <span class="o">-</span> <span class="n">predicted_values</span><span class="p">)</span>
+
+<span class="c1"># Calculate the mean of absolute errors to get MAE</span>
+<span class="n">mae</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">absolute_errors</span><span class="p">)</span>
+
+<span class="c1"># Print the MAE</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mean Absolute Error (MAE):&quot;</span><span class="p">,</span> <span class="n">mae</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mean Absolute Error (MAE): 0.5600000000000002
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id9">
+<h3><span class="section-number">4.5.3. </span>Interpretation<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<p>The MAE gives us an average of how far off our predictions are from the actual values. It provides a more intuitive understanding of error compared to MSE.</p>
+</section>
+</section>
+<section id="mean-absolute-percentage-error-mape">
+<h2><span class="section-number">4.6. </span>Mean Absolute Percentage Error (MAPE)<a class="headerlink" href="#mean-absolute-percentage-error-mape" title="Link to this heading">#</a></h2>
+<p>The Mean Absolute Percentage Error (MAPE) is a metric used to evaluate the accuracy of a model’s predictions in percentage terms. It measures the average absolute percentage difference between actual and predicted values.</p>
+<section id="id10">
+<h3><span class="section-number">4.6.1. </span>The Formula<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<p>The formula for MAPE is:</p>
+<div class="math notranslate nohighlight">
+\[ MAPE = \frac{1}{n} \sum_{i=1}^{n} \left| \frac{y_i - \hat{y}_i}{y_i} \right| \times 100 \]</div>
+<p>Where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( n \)</span> is the number of data points</p></li>
+<li><p><span class="math notranslate nohighlight">\( y_i \)</span> represents the actual value of the dependent variable</p></li>
+<li><p><span class="math notranslate nohighlight">\( \hat{y}_i \)</span> represents the predicted value of the dependent variable</p></li>
+</ul>
+</section>
+<section id="id11">
+<h3><span class="section-number">4.6.2. </span>Interpretation<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate absolute percentage differences between actual and predicted values</span>
+<span class="n">absolute_percentage_errors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">((</span><span class="n">actual_values</span> <span class="o">-</span> <span class="n">predicted_values</span><span class="p">)</span> <span class="o">/</span> <span class="n">actual_values</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
+
+<span class="c1"># Calculate the mean of absolute percentage errors to get MAPE</span>
+<span class="n">mape</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">absolute_percentage_errors</span><span class="p">)</span>
+
+<span class="c1"># Print the MAPE</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mean Absolute Percentage Error (MAPE):&quot;</span><span class="p">,</span> <span class="n">mape</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mean Absolute Percentage Error (MAPE): 2.5706829878497204
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="conclusion-and-recap">
+<h2><span class="section-number">4.7. </span>Conclusion and Recap<a class="headerlink" href="#conclusion-and-recap" title="Link to this heading">#</a></h2>
+<p>In this tutorial, we covered several important metrics used to evaluate the performance of linear regression models. Here’s a quick recap:</p>
+<ul class="simple">
+<li><p>Mean Squared Error (MSE): Measures the average squared difference between actual and predicted values.</p></li>
+<li><p>Root Mean Squared Error (RMSE): The square root of MSE, providing a measure of the average magnitude of error.</p></li>
+<li><p>R-squared (R2) Score: Indicates the proportion of the variance in the dependent variable that is predictable from the independent variables.</p></li>
+<li><p>Mean Absolute Error (MAE): Measures the average absolute differences between actual and predicted values.</p></li>
+<li><p>Mean Absolute Percentage Error (MAPE): Measures the average absolute percentage difference between actual and predicted values.</p></li>
+</ul>
+<p>Each of these metrics provides unique insights into the performance of a linear regression model. Choosing the right metric depends on the specific characteristics of the data and the objectives of the modeling task.</p>
+<p>By understanding and utilizing these metrics, you can make informed decisions about the accuracy and reliability of your linear regression models.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./ml-book/Assignments"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../Parameter-Optimization/gradient-descent.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">3. </span>Gradient descent</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="loss-function.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">5. </span>Loss Function</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-squared-error-mse">4.1. Mean Squared Error (MSE)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-formula">4.1.1. The Formula</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation">4.1.2. Interpretation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#python-implementation">4.1.3. Python Implementation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#root-mean-squared-error-rmse">4.2. Root Mean Squared Error (RMSE)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">4.2.1. The Formula</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">4.2.2. Python Implementation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#r-squared-r2-score">4.3. R-squared (R2) Score</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">4.3.1. The Formula</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">4.3.2. Python Implementation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#residual-analysis">4.4. Residual Analysis</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">4.4.1. Python Implementation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">4.4.2. Interpretation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-absolute-error-mae">4.5. Mean Absolute Error (MAE)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">4.5.1. The Formula</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">4.5.2. Python Implementation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">4.5.3. Interpretation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-absolute-percentage-error-mape">4.6. Mean Absolute Percentage Error (MAPE)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">4.6.1. The Formula</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">4.6.2. Interpretation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion-and-recap">4.7. Conclusion and Recap</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Gxr2024
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,1006 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>6. Gradient descent &#8212; ML-book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'ml-book/Assignments/gradient-descent';</script>
+    <link rel="canonical" href="https://yihaoe.github.io/ml-book/ml-book/Assignments/gradient-descent.html" />
+    <link rel="icon" href="../../_static/fav.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="prev" title="5. Loss Function" href="loss-function.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="ML-book - Home"/>
+    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="ML-book - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Regression Models</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Regression-Models/Univariate-linear-regression.html">1. Univariate linear regression</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Parameter Optimization</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Parameter-Optimization/loss-function.html">2. Loss function</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Parameter-Optimization/gradient-descent.html">3. Gradient descent</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">assignment</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="linear-regression-metrics.html">4. Linear Regression Metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="loss-function.html">5. Loss Function</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">6. Gradient descent</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/yihaoe/ml-book/master?urlpath=tree/ml-book/Assignments/gradient-descent.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onBinder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../../_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/yihaoe/ml-book/blob/master/ml-book/Assignments/gradient-descent.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onColab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/yihaoe/ml-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/yihaoe/ml-book/edit/main/ml-book/Assignments/gradient-descent.ipynb" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/yihaoe/ml-book/issues/new?title=Issue%20on%20page%20%2Fml-book/Assignments/gradient-descent.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/ml-book/Assignments/gradient-descent.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Gradient descent</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#session-objective">6.1. Session Objective</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#let-s-explore-and-gain-intuition">6.2. Let’s Explore and Gain Intuition</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#math-feel-free-to-skip-if-you-find-it-difficult">6.2.1. Math (feel free to skip if you find it difficult)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#partial-derivatives">6.2.2. Partial Derivatives</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#partial-derivative-with-respect-to-m">6.2.3. Partial Derivative with Respect to <span class="math notranslate nohighlight">\(m\)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#partial-derivative-with-respect-to-b">6.2.4. Partial Derivative with Respect to <span class="math notranslate nohighlight">\(b\)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-final-function">6.2.5. The Final Function</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#time-to-code">6.3. Time to code!</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#one-dimensional-gradient-descent">6.4. 1. One-dimensional gradient descent</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#let-s-try">6.4.1. Let’s try!</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#two-dimensional-gradient-descent">6.5. 2. Two-dimensional gradient descent</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">6.5.1. Let’s try!</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="gradient-descent">
+<h1><span class="section-number">6. </span>Gradient descent<a class="headerlink" href="#gradient-descent" title="Link to this heading">#</a></h1>
+<section id="session-objective">
+<h2><span class="section-number">6.1. </span>Session Objective<a class="headerlink" href="#session-objective" title="Link to this heading">#</a></h2>
+<p>In previous sessions, we’ve delved into the application of Linear Regression and Logistic Regression models. You may find the code relatively straightforward and intuitive at this point. However, you might be pondering questions like:</p>
+<ul class="simple">
+<li><p>What exactly occurs when we invoke the <code class="docutils literal notranslate"><span class="pre">.fit()</span></code> function?</p></li>
+<li><p>Why does the execution of the <code class="docutils literal notranslate"><span class="pre">.fit()</span></code> function sometimes take a significant amount of time?</p></li>
+</ul>
+<p>This session is designed to provide insight into the functionality of the <code class="docutils literal notranslate"><span class="pre">.fit()</span></code> method, which is responsible for training machine learning models and fine-tuning model parameters. The underlying technique at play here is known as “Gradient Descent.”</p>
+</section>
+<section id="let-s-explore-and-gain-intuition">
+<h2><span class="section-number">6.2. </span>Let’s Explore and Gain Intuition<a class="headerlink" href="#let-s-explore-and-gain-intuition" title="Link to this heading">#</a></h2>
+<p>To further enhance your understanding and gain a playful insight into Gradient Descent, you can explore the following resources:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/lilipads/gradient_descent_viz">Gradient Descent Visualization</a>: This GitHub repository offers a visualization of the Gradient Descent algorithm, which can be a valuable resource for understanding the optimization process.</p></li>
+<li><p><a class="reference external" href="https://bl.ocks.org/EmilienDupont/aaf429be5705b219aaaf8d691e27ca87">Optimization Algorithms Visualization</a>: Explore this visualization to see how different optimization algorithms, including Gradient Descent, work and how they converge to find optimal solutions.</p></li>
+</ul>
+<p>These resources will help you build an intuitive grasp of Gradient Descent and its role in training machine learning models. Enjoy your exploration!</p>
+<section id="math-feel-free-to-skip-if-you-find-it-difficult">
+<h3><span class="section-number">6.2.1. </span>Math (feel free to skip if you find it difficult)<a class="headerlink" href="#math-feel-free-to-skip-if-you-find-it-difficult" title="Link to this heading">#</a></h3>
+<p>The fundamental concept behind gradient descent is rather straightforward: it involves the gradual adjustment of parameters, such as the slope (<span class="math notranslate nohighlight">\(m\)</span>) and the intercept (<span class="math notranslate nohighlight">\(b\)</span>) in our regression equation $y = mx + b, with the aim of minimizing a cost function. This cost function is typically a metric that quantifies the disparity between our model’s predicted results and the actual values. In regression scenarios, the widely employed cost function is the <code class="docutils literal notranslate"><span class="pre">mean</span> <span class="pre">squared</span> <span class="pre">error</span></code> (MSE). When dealing with classification problems, a different set of parameters must be fine-tuned.</p>
+<p>The MSE (Mean Squared Error) is mathematically expressed as:</p>
+<div class="math notranslate nohighlight">
+\[
+MSE = \frac{1}{n}\sum_{i=1}^{n} (y_i - \hat{y_i})^2
+\]</div>
+<p>Here, <span class="math notranslate nohighlight">\(y_i\)</span> represents the actual data points, <span class="math notranslate nohighlight">\(\hat{y_i}\)</span> signifies the predictions made by our model (<span class="math notranslate nohighlight">\(mx_i + b\)</span>), and <span class="math notranslate nohighlight">\(n\)</span> denotes the total number of data points.</p>
+<p>Our primary challenge is to determine the optimal adjustments to parameters <span class="math notranslate nohighlight">\(m\)</span> and $b” to minimize the MSE effectively.</p>
+</section>
+<section id="partial-derivatives">
+<h3><span class="section-number">6.2.2. </span>Partial Derivatives<a class="headerlink" href="#partial-derivatives" title="Link to this heading">#</a></h3>
+<p>In our pursuit of minimizing the Mean Squared Error (MSE), we turn to partial derivatives to understand how each individual parameter influences the MSE. The term “partial” signifies that we are taking derivatives with respect to individual parameters, in this case, <span class="math notranslate nohighlight">\(m\)</span> and $b, separately.</p>
+<p>Consider the following formula, which closely resembles the MSE, but now we’ve introduced the function <span class="math notranslate nohighlight">\(f(m, b)\)</span> into it. The addition of this function doesn’t significantly alter the essence of the calculation, but it allows us to input specific values for <span class="math notranslate nohighlight">\(m\)</span> and <span class="math notranslate nohighlight">\(b\)</span> to compute the result.</p>
+<div class="math notranslate nohighlight">
+\[f(m, b) = \frac{1}{n}\sum_{i=1}^{n}(y_i - (mx_i+b))^2\]</div>
+<p>For the purposes of calculating partial derivatives, we can temporarily disregard the summation and the terms preceding it, focusing solely on the expression <span class="math notranslate nohighlight">\(y - (mx + b)^2\)</span>. This expression serves as a better starting point for the subsequent partial derivative calculations.</p>
+</section>
+<section id="partial-derivative-with-respect-to-m">
+<h3><span class="section-number">6.2.3. </span>Partial Derivative with Respect to <span class="math notranslate nohighlight">\(m\)</span><a class="headerlink" href="#partial-derivative-with-respect-to-m" title="Link to this heading">#</a></h3>
+<p>When we calculate the partial derivative with respect to the parameter <span class="math notranslate nohighlight">\(m,&quot; we isolate the parameter \)</span>m” and treat <span class="math notranslate nohighlight">\(b\)</span> as a constant (effectively setting it to 0 for differentiation purposes). To compute this derivative, we utilize the chain rule, which is a fundamental concept in calculus.</p>
+<p>The chain rule is expressed as follows:</p>
+<div class="math notranslate nohighlight">
+\[ [f(g(x))]' = f'(g(x)) * g(x)' \quad - \textrm{chain rule} \]</div>
+<p>The chain rule is applicable when one function is nested inside another. In this context, the square operation, <span class="math notranslate nohighlight">\(()^2\)</span>, is the outer function, while <span class="math notranslate nohighlight">\(y - (mx + b)\)</span> is the inner function. Following the chain rule, we differentiate the outer function, maintain the inner function as it is, and then multiply it by the derivative of the inner function. Let’s break down the steps:</p>
+<div class="math notranslate nohighlight">
+\[ (y - (mx + b))^2 \]</div>
+<ol class="arabic simple">
+<li><p>The derivative of <span class="math notranslate nohighlight">\(()^2\)</span> is <span class="math notranslate nohighlight">\(2()\)</span>, just like <span class="math notranslate nohighlight">\(x^2\)</span> becomes <span class="math notranslate nohighlight">\(2x\)</span>.</p></li>
+<li><p>We leave the inner function, <span class="math notranslate nohighlight">\(y - (mx + b)\)</span>, unaltered.</p></li>
+<li><p>The derivative of <span class="math notranslate nohighlight">\(y - (mx + b)\)</span> with respect to <strong><em>m</em></strong> is <span class="math notranslate nohighlight">\((0 - x)\)</span>, which simplifies to <span class="math notranslate nohighlight">\(-x\)</span>. This is because both <strong><em>y</em></strong> and <strong><em>b</em></strong> are treated as constants (their derivatives are zero), and the derivative of <strong><em>mx</em></strong> is simply <strong><em>x</em></strong>.</p></li>
+</ol>
+<p>Now, let’s combine these components:</p>
+<div class="math notranslate nohighlight">
+\[ 2 \cdot (y - (mx+b)) \cdot (-x) \]</div>
+<p>For clarity, we can rearrange this expression by moving the factor of <span class="math notranslate nohighlight">\(-x\)</span> to the left:</p>
+<div class="math notranslate nohighlight">
+\[ -2x \cdot (y-(mx+b)) \]</div>
+<p>This is the final version of our derivative with respect to <span class="math notranslate nohighlight">\(m\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[ \frac{\partial f}{\partial m} = \frac{1}{n}\sum_{i=1}^{n} -2x_i(y_i - (mx_i+b)) \]</div>
+<p>Here, <span class="math notranslate nohighlight">\(\frac{df}{dm}\)</span> signifies the partial derivative of function <span class="math notranslate nohighlight">\(f\)</span> (as previously defined) with respect to the parameter <span class="math notranslate nohighlight">\(m\)</span>. We can now insert this derivative into our summation to complete the calculation.</p>
+</section>
+<section id="partial-derivative-with-respect-to-b">
+<h3><span class="section-number">6.2.4. </span>Partial Derivative with Respect to <span class="math notranslate nohighlight">\(b\)</span><a class="headerlink" href="#partial-derivative-with-respect-to-b" title="Link to this heading">#</a></h3>
+<p>The process for computing the partial derivative with respect to the parameter <span class="math notranslate nohighlight">\(b&quot; is analogous to our previous derivation with respect to \)</span>m. We still apply the same rules and utilize the chain rule:</p>
+<ol class="arabic simple">
+<li><p>The derivative of <span class="math notranslate nohighlight">\(()^2\)</span> is <span class="math notranslate nohighlight">\(2()\)</span>, which corresponds to how <span class="math notranslate nohighlight">\(x^2\)</span> becomes <span class="math notranslate nohighlight">\(2x\)</span>.</p></li>
+<li><p>We leave the inner function, <span class="math notranslate nohighlight">\(y - (mx + b)\)</span>, unaltered.</p></li>
+<li><p>For the derivative of <span class="math notranslate nohighlight">\(y - (mx + b)\)</span> with respect to <strong><em>b</em></strong>, it becomes <span class="math notranslate nohighlight">\((0 - 1)\)</span> or simply $-1.” This is because both <strong><em>y</em></strong> and <strong><em>mx</em></strong> are treated as constants (their derivatives are zero), and the derivative of <strong><em>b</em></strong> is 1.</p></li>
+</ol>
+<p>Now, let’s consolidate these components:</p>
+<div class="math notranslate nohighlight">
+\[ 2 \cdot (y - (mx+b)) \cdot (-1) \]</div>
+<p>Simplifying this expression:</p>
+<div class="math notranslate nohighlight">
+\[ -2 \cdot (y-(mx+b)) \]</div>
+<p>This is the final version of our derivative with respect to <span class="math notranslate nohighlight">\(b\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[ \frac{\partial f}{\partial b} = \frac{1}{n}\sum_{i=1}^{n} -2(y_i - (mx_i+b)) \]</div>
+<p>Similarly to the previous case, <span class="math notranslate nohighlight">\(\frac{df}{db}\)</span> represents the partial derivative of function <span class="math notranslate nohighlight">\(f\)</span> with respect to the parameter $b”. Inserting this derivative into our summation concludes the computation.</p>
+</section>
+<section id="the-final-function">
+<h3><span class="section-number">6.2.5. </span>The Final Function<a class="headerlink" href="#the-final-function" title="Link to this heading">#</a></h3>
+<p>Before delving into the code, there are a few essential details to address:</p>
+<ol class="arabic simple">
+<li><p>Gradient descent is an iterative process, and with each iteration (referred to as an “epoch”), we incrementally reduce the Mean Squared Error (MSE). At each iteration, we apply our derived functions to update the values of parameters <span class="math notranslate nohighlight">\(m\)</span> and <span class="math notranslate nohighlight">\(b\)</span>.</p></li>
+<li><p>Because gradient descent is iterative, we must determine how many iterations to perform, or devise a mechanism to stop the algorithm when it approaches the minimum of the MSE. In essence, we continue iterations until the algorithm no longer improves the MSE, signifying that it has reached a minimum.</p></li>
+<li><p>An important parameter in gradient descent is the learning rate (<span class="math notranslate nohighlight">\(lr\)</span>). The learning rate governs the pace at which the algorithm moves toward the minimum of the MSE. A smaller learning rate results in slower but more precise convergence, while a larger learning rate may lead to faster convergence but may overshoot the minimum.</p></li>
+</ol>
+<p>In summary, gradient descent primarily involves the process of taking derivatives and applying them iteratively to minimize a function. These derivatives guide us toward optimizing the parameters <span class="math notranslate nohighlight">\(m\)</span> and $b” in order to minimize the Mean Squared Error.</p>
+</section>
+</section>
+<section id="time-to-code">
+<h2><span class="section-number">6.3. </span>Time to code!<a class="headerlink" href="#time-to-code" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">sklearn</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">mpl_toolkits.mplot3d</span> <span class="kn">import</span> <span class="n">Axes3D</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">4</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">get_ipython</span><span class="p">()</span><span class="o">.</span><span class="n">run_line_magic</span><span class="p">(</span><span class="s1">&#39;matplotlib&#39;</span><span class="p">,</span> <span class="s1">&#39;inline&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="ne">----&gt; </span><span class="mi">4</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">import</span> <span class="nn">sklearn</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;pandas&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="one-dimensional-gradient-descent">
+<h2><span class="section-number">6.4. </span>1. One-dimensional gradient descent<a class="headerlink" href="#one-dimensional-gradient-descent" title="Link to this heading">#</a></h2>
+<p>One-dimensional gradient descent is a simple optimization algorithm used to find the minimum (or maximum) of a univariate function.</p>
+<p>Here are the main steps:</p>
+<blockquote>
+<div><p>step 1: Choose an initial point on the function curve. For example, we choose an initial x value.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="mi">10</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p>step 2: Compute the derivative of the function at the current point. In this case, the derivative of the function is computed as follows:</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">df</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">5</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p>step 3: Update the position along the function curve using the gradient and the learning rate. The learning rate determines the size of the step.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">learning_rate</span> <span class="o">=</span> <span class="mf">0.3</span>
+<span class="n">x</span> <span class="o">-=</span> <span class="n">learning_rate</span> <span class="o">*</span> <span class="n">df</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p>step 4: Repeat the process for a specified number of iterations.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">max_iter</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_iter</span><span class="p">):</span>
+    <span class="n">gradient</span> <span class="o">=</span> <span class="n">df</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">-=</span> <span class="n">learning_rate</span> <span class="o">*</span> <span class="n">gradient</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p>step 5: Output the result, which is the minimum value of x that corresponds to the minimum of the function.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;x_min:&#39;</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="let-s-try">
+<h3><span class="section-number">6.4.1. </span>Let’s try!<a class="headerlink" href="#let-s-try" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the target function</span>
+<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">5</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">10</span>
+
+<span class="c1"># Define the guidance of the target function</span>
+<span class="k">def</span> <span class="nf">df</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">5</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;f(x)&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define gradient descent function</span>
+<span class="k">def</span> <span class="nf">gradient_descent</span><span class="p">(</span><span class="n">learning_rate</span><span class="p">,</span> <span class="n">max_iter</span><span class="p">,</span> <span class="n">x_init</span><span class="p">):</span>
+    <span class="c1"># step 1:start with an initial value for the input variable, denoted as x_int.</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x_init</span>
+    <span class="n">x_history</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_iter</span><span class="p">):</span>
+        <span class="c1"># step 2:compute the derivative of the function at the current point.</span>
+        <span class="n">gradient</span> <span class="o">=</span> <span class="n">df</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">-=</span> <span class="n">learning_rate</span> <span class="o">*</span> <span class="n">gradient</span>
+        <span class="c1"># step 3:update the position along the function curve.</span>
+        <span class="n">x_history</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="c1"># step 4:repeat the process.</span>
+    <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">x_history</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set the learning rate and initial value</span>
+        <span class="c1"># learning rate: the size of the step for gradient descent.</span>
+        <span class="c1"># max_iter: number of gradient descent iterations.</span>
+<span class="n">learning_rate</span> <span class="o">=</span> <span class="mf">0.3</span>
+<span class="n">max_iter</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">x_init</span> <span class="o">=</span> <span class="mi">10</span>
+
+<span class="c1"># Run gradient descent function</span>
+<span class="n">x_min</span><span class="p">,</span> <span class="n">x_history</span> <span class="o">=</span> <span class="n">gradient_descent</span><span class="p">(</span><span class="n">learning_rate</span><span class="p">,</span> <span class="n">max_iter</span><span class="p">,</span> <span class="n">x_init</span><span class="p">)</span>
+
+<span class="c1"># Draw the target function and the process of gradient descent</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">y_history</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x_history</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;f(x)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_history</span><span class="p">,</span> <span class="n">y_history</span><span class="p">,</span> <span class="s1">&#39;ro-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Gradient Descent&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;f(x)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;One-Dimensional Gradient Descent&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;x_min:&#39;</span><span class="p">,</span> <span class="n">x_min</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>you can change <code class="docutils literal notranslate"><span class="pre">learning</span> <span class="pre">rate</span></code> and  <code class="docutils literal notranslate"><span class="pre">max_iter</span></code> to see different images.</p>
+</section>
+</section>
+<section id="two-dimensional-gradient-descent">
+<h2><span class="section-number">6.5. </span>2. Two-dimensional gradient descent<a class="headerlink" href="#two-dimensional-gradient-descent" title="Link to this heading">#</a></h2>
+<p>Two-dimensional gradient descent is an optimization algorithm used to find the minimum (or maximum) of a function with two input variables.</p>
+<p>Here are the main steps:</p>
+<blockquote>
+<div><p>step 1: Choose an initial point on the function surface by specifying initial values for both x and y.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x_init</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span>
+<span class="n">y_init</span> <span class="o">=</span> <span class="mi">5</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p>step 2: Compute the partial derivatives of the function at the current point. These partial derivatives represent the rate of change of the function with respect to x and y.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">dfx</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">5</span>
+
+<span class="k">def</span> <span class="nf">dfy</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">y</span> <span class="o">+</span> <span class="mi">2</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p>step 3: Update the positions along the function surface for both x and y using their respective partial derivatives and the learning rate.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">learning_rate</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="n">x</span> <span class="o">-=</span> <span class="n">learning_rate</span> <span class="o">*</span> <span class="n">dfx</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">-=</span> <span class="n">learning_rate</span> <span class="o">*</span> <span class="n">dfy</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p>step 4: Repeat the process for a specified number of iterations.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">max_iter</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_iter</span><span class="p">):</span>
+    <span class="n">gradient_x</span> <span class="o">=</span> <span class="n">dfx</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    <span class="n">gradient_y</span> <span class="o">=</span> <span class="n">dfy</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">-=</span> <span class="n">learning_rate</span> <span class="o">*</span> <span class="n">gradient_x</span>
+    <span class="n">y</span> <span class="o">-=</span> <span class="n">learning_rate</span> <span class="o">*</span> <span class="n">gradient_y</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p>step 5: Output the results, which are the minimum values of x and y that correspond to the minimum of the function.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;x_min:&#39;</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;y_min:&#39;</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id1">
+<h3><span class="section-number">6.5.1. </span>Let’s try!<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the target function</span>
+<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">y</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">5</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">y</span> <span class="o">+</span> <span class="mi">10</span>
+
+<span class="c1"># Take the partial derivative of the objective function with respect to x</span>
+<span class="k">def</span> <span class="nf">dfx</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">5</span>
+
+<span class="c1"># Take the partial derivative of the objective function with respect to y</span>
+<span class="k">def</span> <span class="nf">dfy</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">y</span> <span class="o">+</span> <span class="mi">2</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the two-dimensional gradient descent function</span>
+<span class="k">def</span> <span class="nf">gradient_descent</span><span class="p">(</span><span class="n">learning_rate</span><span class="p">,</span> <span class="n">max_iter</span><span class="p">,</span> <span class="n">x_init</span><span class="p">,</span> <span class="n">y_init</span><span class="p">):</span>
+    <span class="c1"># step 1:start with an initial value for the two input variables, denoted as (x_init, y_init).</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x_init</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">y_init</span>
+    <span class="n">x_history</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>
+    <span class="n">y_history</span> <span class="o">=</span> <span class="p">[</span><span class="n">y</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_iter</span><span class="p">):</span>
+        <span class="c1"># step 2:compute the partial derivatives of the function at the current point.</span>
+        <span class="n">gradient_x</span> <span class="o">=</span> <span class="n">dfx</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="n">gradient_y</span> <span class="o">=</span> <span class="n">dfy</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">-=</span> <span class="n">learning_rate</span> <span class="o">*</span> <span class="n">gradient_x</span>
+        <span class="n">y</span> <span class="o">-=</span> <span class="n">learning_rate</span> <span class="o">*</span> <span class="n">gradient_y</span>
+        <span class="c1"># step 3:update the positions along the function surface.</span>
+        <span class="n">x_history</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">y_history</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+    <span class="c1"># step 4:repeat the process.</span>
+    <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">x_history</span><span class="p">,</span> <span class="n">y_history</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set the learning rate and initial value</span>
+<span class="n">learning_rate</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="n">max_iter</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">x_init</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span>
+<span class="n">y_init</span> <span class="o">=</span> <span class="mi">5</span>
+
+<span class="c1"># Run two-dimensional gradient descent function</span>
+<span class="n">x_min</span><span class="p">,</span> <span class="n">y_min</span><span class="p">,</span> <span class="n">x_history</span><span class="p">,</span> <span class="n">y_history</span> <span class="o">=</span> <span class="n">gradient_descent</span><span class="p">(</span><span class="n">learning_rate</span><span class="p">,</span> <span class="n">max_iter</span><span class="p">,</span> <span class="n">x_init</span><span class="p">,</span> <span class="n">y_init</span><span class="p">)</span>
+
+<span class="c1"># Draw the target function and the process of gradient descent</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">Z</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_history</span><span class="p">,</span> <span class="n">y_history</span><span class="p">,</span> <span class="n">f</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x_history</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y_history</span><span class="p">)),</span> <span class="s1">&#39;ro-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Gradient Descent&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s1">&#39;f(x, y)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Two-Dimensional Gradient Descent&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;x_min:&#39;</span><span class="p">,</span> <span class="n">x_min</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;y_min:&#39;</span><span class="p">,</span> <span class="n">y_min</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./ml-book/Assignments"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="loss-function.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">5. </span>Loss Function</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#session-objective">6.1. Session Objective</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#let-s-explore-and-gain-intuition">6.2. Let’s Explore and Gain Intuition</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#math-feel-free-to-skip-if-you-find-it-difficult">6.2.1. Math (feel free to skip if you find it difficult)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#partial-derivatives">6.2.2. Partial Derivatives</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#partial-derivative-with-respect-to-m">6.2.3. Partial Derivative with Respect to <span class="math notranslate nohighlight">\(m\)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#partial-derivative-with-respect-to-b">6.2.4. Partial Derivative with Respect to <span class="math notranslate nohighlight">\(b\)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-final-function">6.2.5. The Final Function</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#time-to-code">6.3. Time to code!</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#one-dimensional-gradient-descent">6.4. 1. One-dimensional gradient descent</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#let-s-try">6.4.1. Let’s try!</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#two-dimensional-gradient-descent">6.5. 2. Two-dimensional gradient descent</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">6.5.1. Let’s try!</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Gxr2024
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
