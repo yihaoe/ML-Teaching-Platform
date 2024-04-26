@@ -3,20 +3,19 @@
 
 format: jb-book
 root: index
-chapters:
-  - file: ml-book/markdown
-  - file: ml-book/notebooks
-  - file: ml-book/bibliography
-
-# Or you organize the TOC by parts
-
-# parts:
-#   - caption: Chapters
-#     numbered: true
-#     maxdepth: 2
-#     chapters:
-#       - file: book/markdown
-#       - file: book/notebooks
-#   - caption: Appendices
-#     chapters:
-#       - file: book/bibliography
+parts:
+  - caption: Regression Models
+    numbered: True
+    chapters:
+      - file: ml-book/Regression-Models/Univariate-linear-regression
+  - caption: Parameter Optimization
+    numbered: True
+    chapters:
+      - file: ml-book/Parameter-Optimization/loss-function
+      - file: ml-book/Parameter-Optimization/gradient-descent
+  - caption: assignment
+    numbered: True
+    chapters:
+    - file: ml-book/Assignments/linear-regression-metrics
+    - file: ml-book/Assignments/loss-function
+    - file: ml-book/Assignments/gradient-descent
