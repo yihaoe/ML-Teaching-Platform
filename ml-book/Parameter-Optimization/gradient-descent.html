@@ -181,11 +181,15 @@
 <li class="toctree-l1"><a class="reference internal" href="loss-function.html">2. Loss function</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">3. Gradient descent</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">assignment</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Assignments</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../Assignments/linear-regression-metrics.html">4. Linear Regression Metrics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Assignments/loss-function.html">5. Loss Function</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Assignments/gradient-descent.html">6. Gradient descent</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">assignment</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../assignment/first-assignment.html">7. First assignment</a></li>
 </ul>
 
     </div>
@@ -779,23 +783,23 @@ Name: lpsa, Length: 97, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;lr&#39;: 0.0003, &#39;n_iters&#39;: 5000, &#39;weights&#39;: array([ 0.44143142,  0.21455377, -0.00063369,  0.07820661,  0.13822109,
-        0.13971083,  0.1160782 ,  0.00887819]), &#39;bias&#39;: 0.02081600154662127}
-0    -1.152534
-1    -0.814297
-2    -1.176377
-3    -0.713816
-4    -1.072463
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;lr&#39;: 0.0003, &#39;n_iters&#39;: 5000, &#39;weights&#39;: array([ 0.46188611,  0.22515867,  0.00472606,  0.08897666,  0.14364852,
+        0.13679871,  0.12200797, -0.00335666]), &#39;bias&#39;: 0.022433180535200173}
+0    -1.464334
+1    -1.166332
+2    -1.378626
+3    -1.061171
+4    -1.482839
         ...   
-92    0.766651
-93    0.668183
-94    1.867797
-95    1.417052
-96    1.651371
+92    1.007504
+93    0.774958
+94    1.589504
+95    1.871597
+96    1.373617
 Name: lpsa, Length: 97, dtype: float64
 </pre></div>
 </div>
-<img alt="../../_images/854d6d70b19f380f2f73353b2ee8057901a6e186b27914fd696ef8f9341b37ca.png" src="../../_images/854d6d70b19f380f2f73353b2ee8057901a6e186b27914fd696ef8f9341b37ca.png" />
+<img alt="../../_images/728e3f63a6afa163e4905694f96e2f82f5daa258f7c4b862ca4e37eafd43e733.png" src="../../_images/728e3f63a6afa163e4905694f96e2f82f5daa258f7c4b862ca4e37eafd43e733.png" />
 </div>
 </div>
 </section>
@@ -870,14 +874,14 @@ Name: lpsa, Length: 97, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_1936/2525160022.py:4: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_1823/2525160022.py:4: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method.
 The behavior will change in pandas 3.0. This inplace method will never work because the intermediate object on which we are setting values always behaves as a copy.
 
 For example, when doing &#39;df[col].method(value, inplace=True)&#39;, try using &#39;df.method({col: value}, inplace=True)&#39; or df[col] = df[col].method(value) instead, to perform the operation inplace on the original object.
 
 
   heart.famhist.replace(to_replace=[&quot;Present&quot;, &quot;Absent&quot;], value=[1, 0], inplace=True)
-/tmp/ipykernel_1936/2525160022.py:4: FutureWarning: Downcasting behavior in `replace` is deprecated and will be removed in a future version. To retain the old behavior, explicitly call `result.infer_objects(copy=False)`. To opt-in to the future behavior, set `pd.set_option(&#39;future.no_silent_downcasting&#39;, True)`
+/tmp/ipykernel_1823/2525160022.py:4: FutureWarning: Downcasting behavior in `replace` is deprecated and will be removed in a future version. To retain the old behavior, explicitly call `result.infer_objects(copy=False)`. To opt-in to the future behavior, set `pd.set_option(&#39;future.no_silent_downcasting&#39;, True)`
   heart.famhist.replace(to_replace=[&quot;Present&quot;, &quot;Absent&quot;], value=[1, 0], inplace=True)
 </pre></div>
 </div>
