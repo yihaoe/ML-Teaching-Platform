@@ -496,12 +496,6 @@ document.write(`
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Bold">[</span><span class=" -Color -Color-Blue">notice</span><span class=" -Color -Color-Bold">]</span> A new release of pip is available: <span class=" -Color -Color-Red">23.0.1</span> -&gt; <span class=" -Color -Color-Green">24.0</span>
-<span class=" -Color -Color-Bold">[</span><span class=" -Color -Color-Blue">notice</span><span class=" -Color -Color-Bold">]</span> To update, run: <span class=" -Color -Color-Green">pip install --upgrade pip</span>
-</pre></div>
-</div>
-</div>
 </details>
 </div>
 <div class="cell docutils container">
@@ -698,7 +692,7 @@ By cost, we usually mean some kind of a function that tells us how far off our m
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;lr&#39;: 0.0003, &#39;n_iters&#39;: 3000, &#39;weights&#39;: array([0.36114314, 0.15172482, 0.01138062, 0.07103796, 0.10143793,
-       0.14812986, 0.09146885, 0.00270041]), &#39;bias&#39;: 0.014542612245156494}
+       0.14812986, 0.09146885, 0.00270041]), &#39;bias&#39;: 0.014542612245156487}
 0    -1.470137
 1    -1.226722
 2    -1.633534
@@ -713,7 +707,7 @@ By cost, we usually mean some kind of a function that tells us how far off our m
 Name: lpsa, Length: 97, dtype: float64
 </pre></div>
 </div>
-<img alt="../../_images/a32fb5de081eadb036898110af5c5a5b2d2b8732b9cc38c75f37dac98eaac974.png" src="../../_images/a32fb5de081eadb036898110af5c5a5b2d2b8732b9cc38c75f37dac98eaac974.png" />
+<img alt="../../_images/fa1428b55e8f02f3b84a682b3c5a72ddbdb2332a498f2a1f35b19608f11c37ef.png" src="../../_images/fa1428b55e8f02f3b84a682b3c5a72ddbdb2332a498f2a1f35b19608f11c37ef.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -783,23 +777,23 @@ Name: lpsa, Length: 97, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;lr&#39;: 0.0003, &#39;n_iters&#39;: 5000, &#39;weights&#39;: array([ 0.46188611,  0.22515867,  0.00472606,  0.08897666,  0.14364852,
-        0.13679871,  0.12200797, -0.00335666]), &#39;bias&#39;: 0.022433180535200173}
-0    -1.464334
-1    -1.166332
-2    -1.378626
-3    -1.061171
-4    -1.482839
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;lr&#39;: 0.0003, &#39;n_iters&#39;: 5000, &#39;weights&#39;: array([ 0.4438507 ,  0.21653236, -0.00196098,  0.08407097,  0.14496092,
+        0.13755223,  0.1197549 , -0.00640268]), &#39;bias&#39;: 0.021768646451838486}
+0    -1.108122
+1    -0.759352
+2    -0.798181
+3    -0.658291
+4    -1.016655
         ...   
-92    1.007504
-93    0.774958
-94    1.589504
-95    1.871597
-96    1.373617
+92    1.736796
+93    1.300247
+94    2.055891
+95    2.676134
+96    2.001249
 Name: lpsa, Length: 97, dtype: float64
 </pre></div>
 </div>
-<img alt="../../_images/728e3f63a6afa163e4905694f96e2f82f5daa258f7c4b862ca4e37eafd43e733.png" src="../../_images/728e3f63a6afa163e4905694f96e2f82f5daa258f7c4b862ca4e37eafd43e733.png" />
+<img alt="../../_images/d30dcfc35f5ac737e45e29ebdc9895e17c7c9470a084fc67a8ce19b6161afca8.png" src="../../_images/d30dcfc35f5ac737e45e29ebdc9895e17c7c9470a084fc67a8ce19b6161afca8.png" />
 </div>
 </div>
 </section>
@@ -874,17 +868,6 @@ Name: lpsa, Length: 97, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_1823/2525160022.py:4: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method.
-The behavior will change in pandas 3.0. This inplace method will never work because the intermediate object on which we are setting values always behaves as a copy.
-
-For example, when doing &#39;df[col].method(value, inplace=True)&#39;, try using &#39;df.method({col: value}, inplace=True)&#39; or df[col] = df[col].method(value) instead, to perform the operation inplace on the original object.
-
-
-  heart.famhist.replace(to_replace=[&quot;Present&quot;, &quot;Absent&quot;], value=[1, 0], inplace=True)
-/tmp/ipykernel_1823/2525160022.py:4: FutureWarning: Downcasting behavior in `replace` is deprecated and will be removed in a future version. To retain the old behavior, explicitly call `result.infer_objects(copy=False)`. To opt-in to the future behavior, set `pd.set_option(&#39;future.no_silent_downcasting&#39;, True)`
-  heart.famhist.replace(to_replace=[&quot;Present&quot;, &quot;Absent&quot;], value=[1, 0], inplace=True)
-</pre></div>
-</div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>LR classification perf:
  [[88  9]
  [40 16]]
