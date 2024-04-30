@@ -3,3 +3,6 @@ jupytext
 matplotlib
 numpy
 ghp-import
+pandas
+seaborn
+matplotl
