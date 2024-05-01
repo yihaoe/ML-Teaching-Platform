@@ -8,6 +8,7 @@ parts:
     numbered: True
     chapters:
       - file: ml-book/Regression-Models/Univariate-linear-regression
+      - file: ml-book/Regression-Models/Polynomial-regression
   - caption: Parameter Optimization
     numbered: True
     chapters:
