@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>8. Simple Linear Regression &#8212; ML-book</title>
+    <title>9. Simple Linear Regression &#8212; ML-book</title>
   
   
   
@@ -62,7 +62,7 @@
     <link rel="icon" href="../../_static/fav.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="prev" title="7. First assignment" href="first-assignment.html" />
+    <link rel="prev" title="8. First assignment" href="first-assignment.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -183,11 +183,12 @@
 <li class="toctree-l1"><a class="reference internal" href="../Assignments/linear-regression-metrics.html">4. Linear Regression Metrics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Assignments/loss-function.html">5. Loss Function</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Assignments/gradient-descent.html">6. Gradient descent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Assignments/polynomial-regression-from-scratch.html">7. Polynomial Regression  from Scratch</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">assignment</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="first-assignment.html">7. First assignment</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">8. Simple Linear Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="first-assignment.html">8. First assignment</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">9. Simple Linear Regression</a></li>
 </ul>
 
     </div>
@@ -449,18 +450,18 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preparations">8.1. Preparations</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#importing-libraries-and-dataset">8.1.1. Importing libraries and dataset.</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-inspection">8.1.2. Data Inspection</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-cleaning">8.1.3. Data Cleaning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preparations">9.1. Preparations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#importing-libraries-and-dataset">9.1.1. Importing libraries and dataset.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-inspection">9.1.2. Data Inspection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-cleaning">9.1.3. Data Cleaning</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-building">8.2. Model Building</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#train-test-split">8.2.1. Train-Test Split</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-building">9.2. Model Building</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#train-test-split">9.2.1. Train-Test Split</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-evaluation">8.3. Model Evaluation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#acknowledgments">8.4. Acknowledgments</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-evaluation">9.3. Model Evaluation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#acknowledgments">9.4. Acknowledgments</a></li>
 </ul>
             </nav>
         </div>
@@ -473,13 +474,13 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="simple-linear-regression">
-<h1><span class="section-number">8. </span>Simple Linear Regression<a class="headerlink" href="#simple-linear-regression" title="Link to this heading">#</a></h1>
+<h1><span class="section-number">9. </span>Simple Linear Regression<a class="headerlink" href="#simple-linear-regression" title="Link to this heading">#</a></h1>
 <p>In this assignment, we will use ‘TV advertising’ to predict ‘sales’ by using a simple regression model.</p>
 <section id="preparations">
-<h2><span class="section-number">8.1. </span>Preparations<a class="headerlink" href="#preparations" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">9.1. </span>Preparations<a class="headerlink" href="#preparations" title="Link to this heading">#</a></h2>
 <p>Including import libraries, dataset and data cleaning, data visualization</p>
 <section id="importing-libraries-and-dataset">
-<h3><span class="section-number">8.1.1. </span>Importing libraries and dataset.<a class="headerlink" href="#importing-libraries-and-dataset" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">9.1.1. </span>Importing libraries and dataset.<a class="headerlink" href="#importing-libraries-and-dataset" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Import the numpy and pandas package</span>
@@ -567,7 +568,7 @@ document.write(`
 </div>
 </section>
 <section id="data-inspection">
-<h3><span class="section-number">8.1.2. </span>Data Inspection<a class="headerlink" href="#data-inspection" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">9.1.2. </span>Data Inspection<a class="headerlink" href="#data-inspection" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">advertising</span><span class="o">.</span><span class="n">shape</span>
@@ -696,7 +697,7 @@ memory usage: 6.4 KB
 </div>
 </section>
 <section id="data-cleaning">
-<h3><span class="section-number">8.1.3. </span>Data Cleaning<a class="headerlink" href="#data-cleaning" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">9.1.3. </span>Data Cleaning<a class="headerlink" href="#data-cleaning" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Checking Null values</span>
@@ -757,7 +758,7 @@ dtype: float64
 </section>
 </section>
 <section id="model-building">
-<h2><span class="section-number">8.2. </span>Model Building<a class="headerlink" href="#model-building" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">9.2. </span>Model Building<a class="headerlink" href="#model-building" title="Link to this heading">#</a></h2>
 <p>In this section, you will need to fill in some code to help train the linear regression model, and there will be instructions and hints where you need to fill in.</p>
 <p>We first assign the feature variable, <code class="docutils literal notranslate"><span class="pre">TV</span></code>, in this case, to the variable <code class="docutils literal notranslate"><span class="pre">X</span></code> and the response variable, <code class="docutils literal notranslate"><span class="pre">Sales</span></code>, to the variable <code class="docutils literal notranslate"><span class="pre">y</span></code>.</p>
 <div class="cell docutils container">
@@ -769,7 +770,7 @@ dtype: float64
 </div>
 </div>
 <section id="train-test-split">
-<h3><span class="section-number">8.2.1. </span>Train-Test Split<a class="headerlink" href="#train-test-split" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">9.2.1. </span>Train-Test Split<a class="headerlink" href="#train-test-split" title="Link to this heading">#</a></h3>
 <p>You now need to split our variable into training and testing sets. You’ll perform this by importing <code class="docutils literal notranslate"><span class="pre">train_test_split</span></code> from the <code class="docutils literal notranslate"><span class="pre">sklearn.model_selection</span></code> library. It is usually a good practice to keep 70% of the data in your train dataset and the rest 30% in your test dataset</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -882,7 +883,7 @@ Name: Sales, dtype: float64
 </section>
 </section>
 <section id="model-evaluation">
-<h2><span class="section-number">8.3. </span>Model Evaluation<a class="headerlink" href="#model-evaluation" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">9.3. </span>Model Evaluation<a class="headerlink" href="#model-evaluation" title="Link to this heading">#</a></h2>
 <p>First, We need to check if the error terms are also normally distributed (which is infact, one of the major assumptions of linear regression), let us plot the histogram of the error terms and see what it looks like.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -981,7 +982,7 @@ Mean error: 2.02
 </div>
 </section>
 <section id="acknowledgments">
-<h2><span class="section-number">8.4. </span>Acknowledgments<a class="headerlink" href="#acknowledgments" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">9.4. </span>Acknowledgments<a class="headerlink" href="#acknowledgments" title="Link to this heading">#</a></h2>
 <p>Thanks to <a class="reference external" href="https://www.kaggle.com/ashydv">Ashish</a> for creating the open-source course <a class="reference external" href="https://www.kaggle.com/code/ashydv/sales-prediction-simple-linear-regression/notebook">Simple Linear Regression</a>. It inspires the majority of the content in this chapter.</p>
 </section>
 </section>
@@ -1022,7 +1023,7 @@ Mean error: 2.02
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><span class="section-number">7. </span>First assignment</p>
+        <p class="prev-next-title"><span class="section-number">8. </span>First assignment</p>
       </div>
     </a>
 </div>
@@ -1041,18 +1042,18 @@ Mean error: 2.02
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preparations">8.1. Preparations</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#importing-libraries-and-dataset">8.1.1. Importing libraries and dataset.</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-inspection">8.1.2. Data Inspection</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-cleaning">8.1.3. Data Cleaning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preparations">9.1. Preparations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#importing-libraries-and-dataset">9.1.1. Importing libraries and dataset.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-inspection">9.1.2. Data Inspection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-cleaning">9.1.3. Data Cleaning</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-building">8.2. Model Building</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#train-test-split">8.2.1. Train-Test Split</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-building">9.2. Model Building</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#train-test-split">9.2.1. Train-Test Split</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-evaluation">8.3. Model Evaluation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#acknowledgments">8.4. Acknowledgments</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-evaluation">9.3. Model Evaluation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#acknowledgments">9.4. Acknowledgments</a></li>
 </ul>
   </nav></div>
 
