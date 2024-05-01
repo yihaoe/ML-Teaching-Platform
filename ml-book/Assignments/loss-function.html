@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>5. Loss Function &#8212; ML-book</title>
+    <title>6. Loss Function &#8212; ML-book</title>
   
   
   
@@ -64,8 +64,8 @@
     <link rel="icon" href="../../_static/fav.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="6. Gradient descent" href="gradient-descent.html" />
-    <link rel="prev" title="4. Linear Regression Metrics" href="linear-regression-metrics.html" />
+    <link rel="next" title="7. Gradient descent" href="gradient-descent.html" />
+    <link rel="prev" title="5. Linear Regression Metrics" href="linear-regression-metrics.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -175,24 +175,25 @@
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Regression Models</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../Regression-Models/Univariate-linear-regression.html">1. Univariate linear regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Regression-Models/Polynomial-regression.html">2. Polynomial Regression</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Parameter Optimization</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../Parameter-Optimization/loss-function.html">2. Loss function</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Parameter-Optimization/gradient-descent.html">3. Gradient descent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Parameter-Optimization/loss-function.html">3. Loss function</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Parameter-Optimization/gradient-descent.html">4. Gradient descent</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Assignments</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="linear-regression-metrics.html">4. Linear Regression Metrics</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">5. Loss Function</a></li>
-<li class="toctree-l1"><a class="reference internal" href="gradient-descent.html">6. Gradient descent</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polynomial-regression-from-scratch.html">7. Polynomial Regression  from Scratch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="linear-regression-metrics.html">5. Linear Regression Metrics</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">6. Loss Function</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gradient-descent.html">7. Gradient descent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polynomial-regression-from-scratch.html">8. Polynomial Regression  from Scratch</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">assignment</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../assignment/first-assignment.html">8. First assignment</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../assignment/simple-linear-regression.html">9. Simple Linear Regression</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../assignment/polynomial-regression-from-scratch.html">10. Polynomial Regression  from Scratch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../assignment/first-assignment.html">9. First assignment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../assignment/simple-linear-regression.html">10. Simple Linear Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../assignment/polynomial-regression-from-scratch.html">11. Polynomial Regression  from Scratch</a></li>
 </ul>
 
     </div>
@@ -454,21 +455,21 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objective-of-this-section">5.1. Objective of this section</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#concept-of-loss-function">5.2. Concept of loss function</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classification-of-loss-functions">5.3. Classification of loss functions</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regression-losses">5.3.1. Regression Losses</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#classification-losses">5.3.2. Classification Losses</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#structured-losses">5.3.3. Structured Losses</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regularization-losses">5.3.4. Regularization Losses</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objective-of-this-section">6.1. Objective of this section</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#concept-of-loss-function">6.2. Concept of loss function</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classification-of-loss-functions">6.3. Classification of loss functions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regression-losses">6.3.1. Regression Losses</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#classification-losses">6.3.2. Classification Losses</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#structured-losses">6.3.3. Structured Losses</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regularization-losses">6.3.4. Regularization Losses</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#common-loss-functions">5.4. Common Loss Functions</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regression-loss-functions">5.4.1. Regression Loss Functions</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#classification-loss-functions">5.4.2. Classification Loss Functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#common-loss-functions">6.4. Common Loss Functions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regression-loss-functions">6.4.1. Regression Loss Functions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#classification-loss-functions">6.4.2. Classification Loss Functions</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">5.5. Conclusion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">6.5. Conclusion</a></li>
 </ul>
             </nav>
         </div>
@@ -481,15 +482,15 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="loss-function">
-<h1><span class="section-number">5. </span>Loss Function<a class="headerlink" href="#loss-function" title="Link to this heading">#</a></h1>
+<h1><span class="section-number">6. </span>Loss Function<a class="headerlink" href="#loss-function" title="Link to this heading">#</a></h1>
 <section id="objective-of-this-section">
-<h2><span class="section-number">5.1. </span>Objective of this section<a class="headerlink" href="#objective-of-this-section" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">6.1. </span>Objective of this section<a class="headerlink" href="#objective-of-this-section" title="Link to this heading">#</a></h2>
 <p>We have already learned math and code for “Gradient Descent”, as well as other optimization techniques.</p>
 <p>In this section, we will learn more about loss functions.</p>
 <p>As a learner, you can focus on learning the L1, L2 loss, and Classification Losses in the regression loss function in this section. And learn about other loss functions.</p>
 </section>
 <section id="concept-of-loss-function">
-<h2><span class="section-number">5.2. </span>Concept of loss function<a class="headerlink" href="#concept-of-loss-function" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">6.2. </span>Concept of loss function<a class="headerlink" href="#concept-of-loss-function" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>A loss function gauges the disparity between the model’s predictions and the actual values. Simply put, it indicates how “off” our model is. By optimizing this function, our objective is to identify parameters that bring the model’s predictions as close as possible to the true values.</p></li>
 <li><p>The function we want to minimize or maximize is called the objective function or criterion. When we are minimizing it, we may also call it the cost function, loss function, or error function.
@@ -497,9 +498,9 @@ document.write(`
 </ul>
 </section>
 <section id="classification-of-loss-functions">
-<h2><span class="section-number">5.3. </span>Classification of loss functions<a class="headerlink" href="#classification-of-loss-functions" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">6.3. </span>Classification of loss functions<a class="headerlink" href="#classification-of-loss-functions" title="Link to this heading">#</a></h2>
 <section id="regression-losses">
-<h3><span class="section-number">5.3.1. </span>Regression Losses<a class="headerlink" href="#regression-losses" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">6.3.1. </span>Regression Losses<a class="headerlink" href="#regression-losses" title="Link to this heading">#</a></h3>
 <p>These are employed when the objective is to predict a continuous outcome.</p>
 <ul class="simple">
 <li><p>Mean Squared Error (MSE): Measures the average squared discrepancies between predictions and actual values, emphasizing larger errors.</p></li>
@@ -511,7 +512,7 @@ document.write(`
 </ul>
 </section>
 <section id="classification-losses">
-<h3><span class="section-number">5.3.2. </span>Classification Losses<a class="headerlink" href="#classification-losses" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">6.3.2. </span>Classification Losses<a class="headerlink" href="#classification-losses" title="Link to this heading">#</a></h3>
 <p>Utilized for tasks requiring the prediction of discrete categories.</p>
 <ul class="simple">
 <li><p>Cross Entropy Loss: Quantifies the dissimilarity between the predicted probability distribution and the actual class distribution.</p></li>
@@ -521,7 +522,7 @@ document.write(`
 </ul>
 </section>
 <section id="structured-losses">
-<h3><span class="section-number">5.3.3. </span>Structured Losses<a class="headerlink" href="#structured-losses" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">6.3.3. </span>Structured Losses<a class="headerlink" href="#structured-losses" title="Link to this heading">#</a></h3>
 <p>Tailored for intricate tasks involving structured data patterns.</p>
 <ul class="simple">
 <li><p>Sequence Generation Loss: Emblematic examples include the CTC (Connectionist Temporal Classification) designed for undertakings such as speech and text identification.</p></li>
@@ -529,7 +530,7 @@ document.write(`
 </ul>
 </section>
 <section id="regularization-losses">
-<h3><span class="section-number">5.3.4. </span>Regularization Losses<a class="headerlink" href="#regularization-losses" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">6.3.4. </span>Regularization Losses<a class="headerlink" href="#regularization-losses" title="Link to this heading">#</a></h3>
 <p>Rather than directly influencing the model’s predictions, these losses are integrated into the objective function to counteract excessive model complexity.</p>
 <ul class="simple">
 <li><p>L1 Regularization (Lasso): Enforces sparsity by compelling certain model coefficients to be exactly zero.</p></li>
@@ -538,9 +539,9 @@ document.write(`
 </section>
 </section>
 <section id="common-loss-functions">
-<h2><span class="section-number">5.4. </span>Common Loss Functions<a class="headerlink" href="#common-loss-functions" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">6.4. </span>Common Loss Functions<a class="headerlink" href="#common-loss-functions" title="Link to this heading">#</a></h2>
 <section id="regression-loss-functions">
-<h3><span class="section-number">5.4.1. </span>Regression Loss Functions<a class="headerlink" href="#regression-loss-functions" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">6.4.1. </span>Regression Loss Functions<a class="headerlink" href="#regression-loss-functions" title="Link to this heading">#</a></h3>
 <ol class="arabic simple">
 <li><p><strong>Mean Squared Error, MSE</strong></p></li>
 </ol>
@@ -616,7 +617,7 @@ L = | y - f(x) |
 <p>Corresponds to MSE.</p>
 </section>
 <section id="classification-loss-functions">
-<h3><span class="section-number">5.4.2. </span>Classification Loss Functions<a class="headerlink" href="#classification-loss-functions" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">6.4.2. </span>Classification Loss Functions<a class="headerlink" href="#classification-loss-functions" title="Link to this heading">#</a></h3>
 <ol class="arabic simple">
 <li><p><strong>Hinge Loss</strong></p></li>
 </ol>
@@ -639,7 +640,7 @@ L(y, \hat{y}) = \max(0, 1 - y \cdot \hat{y})
 </section>
 </section>
 <section id="conclusion">
-<h2><span class="section-number">5.5. </span>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">6.5. </span>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading">#</a></h2>
 <p>Loss functions hold a pivotal role in machine learning. By minimizing the loss, we enhance the accuracy of our model’s predictions. A deep understanding of various loss functions aids in selecting the most appropriate optimization technique for specific challenges.</p>
 </section>
 </section>
@@ -680,7 +681,7 @@ L(y, \hat{y}) = \max(0, 1 - y \cdot \hat{y})
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><span class="section-number">4. </span>Linear Regression Metrics</p>
+        <p class="prev-next-title"><span class="section-number">5. </span>Linear Regression Metrics</p>
       </div>
     </a>
     <a class="right-next"
@@ -688,7 +689,7 @@ L(y, \hat{y}) = \max(0, 1 - y \cdot \hat{y})
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">6. </span>Gradient descent</p>
+        <p class="prev-next-title"><span class="section-number">7. </span>Gradient descent</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -708,21 +709,21 @@ L(y, \hat{y}) = \max(0, 1 - y \cdot \hat{y})
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objective-of-this-section">5.1. Objective of this section</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#concept-of-loss-function">5.2. Concept of loss function</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classification-of-loss-functions">5.3. Classification of loss functions</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regression-losses">5.3.1. Regression Losses</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#classification-losses">5.3.2. Classification Losses</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#structured-losses">5.3.3. Structured Losses</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regularization-losses">5.3.4. Regularization Losses</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objective-of-this-section">6.1. Objective of this section</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#concept-of-loss-function">6.2. Concept of loss function</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classification-of-loss-functions">6.3. Classification of loss functions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regression-losses">6.3.1. Regression Losses</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#classification-losses">6.3.2. Classification Losses</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#structured-losses">6.3.3. Structured Losses</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regularization-losses">6.3.4. Regularization Losses</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#common-loss-functions">5.4. Common Loss Functions</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regression-loss-functions">5.4.1. Regression Loss Functions</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#classification-loss-functions">5.4.2. Classification Loss Functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#common-loss-functions">6.4. Common Loss Functions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regression-loss-functions">6.4.1. Regression Loss Functions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#classification-loss-functions">6.4.2. Classification Loss Functions</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">5.5. Conclusion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">6.5. Conclusion</a></li>
 </ul>
   </nav></div>
 
