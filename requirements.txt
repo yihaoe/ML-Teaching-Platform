@@ -6,4 +6,4 @@ ghp-import
 pandas
 seaborn
 matplotlib
-sklearn
+scikit-learn
