@@ -25,3 +25,4 @@ parts:
     chapters:
     - file: ml-book/assignment/first-assignment
     - file: ml-book/assignment/simple-linear-regression
+    - file: ml-book/assignment/polynomial-regression-from-scratch
