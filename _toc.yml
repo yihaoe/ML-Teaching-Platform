@@ -28,4 +28,5 @@ parts:
     - file: ml-book/assignment/simple-linear-regression
     - file: ml-book/assignment/polynomial-regression-from-scratch
     - file: ml-book/assignment/Linear-regression-metrics
+    - file: ml-book/assignment/Logistic-regression
 
