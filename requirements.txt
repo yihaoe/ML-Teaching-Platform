@@ -7,3 +7,5 @@ pandas
 seaborn
 matplotlib
 scikit-learn
+pytest
+nbmake
