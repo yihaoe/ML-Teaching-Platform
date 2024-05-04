@@ -8,4 +8,5 @@ seaborn
 matplotlib
 scikit-learn
 pytest
+ipytest
 nbmake
