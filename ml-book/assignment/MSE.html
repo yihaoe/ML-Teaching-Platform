@@ -513,12 +513,12 @@ document.write(`
 <span class="sd">    mse -- Mean Squared Error.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Ensure that the lengths of the input lists are the same</span>
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">___</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">___</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_true</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_pred</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Length mismatch: y_true and y_pred&quot;</span><span class="p">)</span>
 
     <span class="c1"># Calculate the Mean Squared Error</span>
-    <span class="n">squared_errors</span> <span class="o">=</span> <span class="p">(</span><span class="n">___</span> <span class="o">-</span> <span class="n">___</span><span class="p">)</span> <span class="o">**</span> <span class="n">___</span>
-    <span class="n">mse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">___</span><span class="p">(</span><span class="n">squared_errors</span><span class="p">)</span>
+    <span class="n">squared_errors</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_true</span> <span class="o">-</span> <span class="n">y_pred</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+    <span class="n">mse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">squared_errors</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">mse</span>
 
@@ -527,6 +527,13 @@ document.write(`
 <span class="n">y_pred</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">23.5</span><span class="p">,</span> <span class="mf">20.2</span><span class="p">,</span> <span class="mf">23.9</span><span class="p">,</span> <span class="mf">19.8</span><span class="p">,</span> <span class="mf">18.5</span><span class="p">])</span>
 <span class="n">mse</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mean Squared Error:&quot;</span><span class="p">,</span> <span class="n">mse</span><span class="p">)</span>
+
+<span class="k">assert</span> <span class="n">mse</span> <span class="o">==</span> <span class="mf">0.5079999999999996</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mean Squared Error: 0.5079999999999996
 </pre></div>
 </div>
 </div>
@@ -555,6 +562,28 @@ class Test_MSE:
         y_pred = np.array([1, 2, 3, 4])
         with pytest.raises(ValueError):
             mean_squared_error(y_true, y_pred)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Green">.</span><span class=" -Color -Color-Red">F</span><span class=" -Color -Color-Green">.</span><span class=" -Color -Color-Red">                                                                                          [100%]</span>
+============================================ FAILURES =============================================
+<span class=" -Color -Color-Bold -Color-Bold-Red">___________________________ Test_MSE.test_mean_squared_error_all_zeros ____________________________</span>
+
+self = &lt;__main__.Test_MSE object at 0x000002A48765A280&gt;
+
+    def test_mean_squared_error_all_zeros(self):
+    # Test when all predicted values are 0, the mean squared error should equal the sum of squares of actual values divided by the number of actual values
+        y_true = np.array([1, 2, 3, 4, 5])
+        y_pred = np.array([0, 0, 0, 0, 0])
+&gt;       assert mean_squared_error(y_true, y_pred) == 1.0
+<span class=" -Color -Color-Bold -Color-Bold-Red">E       assert 11.0 == 1.0</span>
+<span class=" -Color -Color-Bold -Color-Bold-Red">E        +  where 11.0 = mean_squared_error(array([1, 2, 3, 4, 5]), array([0, 0, 0, 0, 0]))</span>
+
+<span class=" -Color -Color-Bold -Color-Bold-Red">C:\Users\Administrator\AppData\Local\Temp\ipykernel_4860\3293745680.py</span>:12: AssertionError
+<span class=" -Color -Color-Bold -Color-Bold-Cyan">===================================== short test summary info =====================================</span>
+<span class=" -Color -Color-Red">FAILED</span> t_d77093ed2c6a42589393ccea7208dcff.py::<span class=" -Color -Color-Bold">Test_MSE::test_mean_squared_error_all_zeros</span> - assert 11.0 == 1.0
+<span class=" -Color -Color-Bold -Color-Bold-Red">1 failed</span>, <span class=" -Color -Color-Green">2 passed</span><span class=" -Color -Color-Red"> in 0.04s</span>
 </pre></div>
 </div>
 </div>
