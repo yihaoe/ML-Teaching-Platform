@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>4. Loss function &#8212; ML-book</title>
+    <title>3. Logistic Regression &#8212; ML-book</title>
   
   
   
@@ -57,15 +57,13 @@
     <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'ml-book/Parameter-Optimization/loss-function';</script>
-    <link rel="canonical" href="https://yihaoe.github.io/ml-book/ml-book/Parameter-Optimization/loss-function.html" />
+    <script>DOCUMENTATION_OPTIONS.pagename = 'ml-book/Regression-Models/Logistic-regression';</script>
+    <link rel="canonical" href="https://yihaoe.github.io/ml-book/ml-book/Regression-Models/Logistic-regression.html" />
     <link rel="icon" href="../../_static/fav.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="5. Gradient descent" href="gradient-descent.html" />
-    <link rel="prev" title="3. Logistic Regression" href="../Regression-Models/Logistic-regression.html" />
+    <link rel="next" title="4. Loss function" href="../Parameter-Optimization/loss-function.html" />
+    <link rel="prev" title="2. Polynomial Regression" href="Polynomial-regression.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -173,15 +171,15 @@
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Regression Models</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../Regression-Models/Univariate-linear-regression.html">1. Univariate linear regression</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Regression-Models/Polynomial-regression.html">2. Polynomial Regression</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Regression-Models/Logistic-regression.html">3. Logistic Regression</a></li>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Univariate-linear-regression.html">1. Univariate linear regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Polynomial-regression.html">2. Polynomial Regression</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">3. Logistic Regression</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Parameter Optimization</span></p>
-<ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">4. Loss function</a></li>
-<li class="toctree-l1"><a class="reference internal" href="gradient-descent.html">5. Gradient descent</a></li>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Parameter-Optimization/loss-function.html">4. Loss function</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Parameter-Optimization/gradient-descent.html">5. Gradient descent</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Assignments</span></p>
 <ul class="nav bd-sidenav">
@@ -250,7 +248,7 @@
       
       
       
-      <li><a href="https://mybinder.org/v2/gh/yihaoe/ml-book/master?urlpath=tree/ml-book/Parameter-Optimization/loss-function.ipynb" target="_blank"
+      <li><a href="https://mybinder.org/v2/gh/yihaoe/ml-book/master?urlpath=tree/ml-book/Regression-Models/Logistic-regression.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
    title="Launch onBinder"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -268,7 +266,7 @@
       
       
       
-      <li><a href="https://colab.research.google.com/github/yihaoe/ml-book/blob/master/ml-book/Parameter-Optimization/loss-function.ipynb" target="_blank"
+      <li><a href="https://colab.research.google.com/github/yihaoe/ml-book/blob/master/ml-book/Regression-Models/Logistic-regression.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
    title="Launch onColab"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -316,7 +314,7 @@
       
       
       
-      <li><a href="https://github.com/yihaoe/ml-book/edit/main/ml-book/Parameter-Optimization/loss-function.ipynb" target="_blank"
+      <li><a href="https://github.com/yihaoe/ml-book/edit/main/ml-book/Regression-Models/Logistic-regression.ipynb" target="_blank"
    class="btn btn-sm btn-source-edit-button dropdown-item"
    title="Suggest edit"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -333,7 +331,7 @@
       
       
       
-      <li><a href="https://github.com/yihaoe/ml-book/issues/new?title=Issue%20on%20page%20%2Fml-book/Parameter-Optimization/loss-function.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/yihaoe/ml-book/issues/new?title=Issue%20on%20page%20%2Fml-book/Regression-Models/Logistic-regression.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -363,7 +361,7 @@
       
       
       
-      <li><a href="../../_sources/ml-book/Parameter-Optimization/loss-function.ipynb" target="_blank"
+      <li><a href="../../_sources/ml-book/Regression-Models/Logistic-regression.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -447,7 +445,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Loss function</h1>
+    <h1>Logistic Regression</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -457,21 +455,9 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objective-of-this-section">4.1. Objective of this section</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#whats-the-difference-between-a-loss-function-and-a-cost-function">4.2. What’s the Difference between a Loss Function and a Cost Function?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regression-loss-functions">4.3. Regression Loss Functions</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#squared-error-loss">4.3.1. Squared Error Loss</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#absolute-error-loss">4.3.2. Absolute Error Loss</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classification-loss-functions">4.4. Classification Loss Functions</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#binary-cross-entropy-loss">4.4.1. Binary Cross Entropy Loss</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-class-cross-entropy-loss">4.4.2. Multi-Class Cross-Entropy Loss</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-at-the-frontier-of-machine-learning-research">4.5. [optional] At the frontier of Machine Learning Research</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bibliography">4.6. Bibliography</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#your-turn">4.7. Your turn! 🚀</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">3.1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-regression-vs-logistic-regression">3.2. Linear Regression Vs. Logistic regression</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#types-of-logistic-regression">3.3. Types of Logistic Regression</a></li>
 </ul>
             </nav>
         </div>
@@ -485,164 +471,40 @@ document.write(`
                   
   <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install the necessary dependencies</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install the necessary dependencies</span>
 
-<span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">os</span>
-<span class="o">!{</span>sys.executable<span class="o">}</span><span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--quiet<span class="w"> </span>pandas<span class="w"> </span>numpy<span class="w"> </span>matplotlib<span class="w"> </span>jupyterlab_myst<span class="w"> </span>ipython<span class="w"> </span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="err">!</span><span class="p">{</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">}</span> <span class="o">-</span><span class="n">m</span> <span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">quiet</span> <span class="n">pandas</span> <span class="n">scikit</span><span class="o">-</span><span class="n">learn</span> <span class="n">numpy</span> <span class="n">matplotlib</span> <span class="n">jupyterlab_myst</span> <span class="n">ipython</span>
 </pre></div>
 </div>
 </div>
 </div>
-<section class="tex2jax_ignore mathjax_ignore" id="loss-function">
-<h1><span class="section-number">4. </span>Loss function<a class="headerlink" href="#loss-function" title="Link to this heading">#</a></h1>
-<p>The function we want to minimize or maximize is called the objective function or criterion. When we are minimizing it, we may also call it the cost function, loss function, or error function.</p>
-<p>— Deep Learning, Ian Goodfellow, Yoshua Bengio, Aaron Courville</p>
-<section id="objective-of-this-section">
-<h2><span class="section-number">4.1. </span>Objective of this section<a class="headerlink" href="#objective-of-this-section" title="Link to this heading">#</a></h2>
-<p>We have already learned math and code for “Gradient Descent”, as well as other optimization techniques.</p>
-<p>In this section, we will learn more about loss functions for Linear Regression and Logistic Regression.</p>
+<section class="tex2jax_ignore mathjax_ignore" id="logistic-regression">
+<h1><span class="section-number">3. </span>Logistic Regression<a class="headerlink" href="#logistic-regression" title="Link to this heading">#</a></h1>
+<section id="introduction">
+<h2><span class="section-number">3.1. </span>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>When data scientists may come across a new classification problem, the first algorithm that may come across their mind is <strong>Logistic Regression</strong>. It is a supervised learning classification algorithm which is used to predict observations to a discrete set of classes. Practically, it is used to classify observations into different categories. Hence, its output is discrete in nature. <strong>Logistic Regression</strong> is also called <strong>Logit Regression</strong>. It is one of the most simple, straightforward and versatile classification algorithms which is used to solve classification problems.</p>
 </section>
-<section id="whats-the-difference-between-a-loss-function-and-a-cost-function">
-<h2><span class="section-number">4.2. </span>What’s the Difference between a Loss Function and a Cost Function?<a class="headerlink" href="#whats-the-difference-between-a-loss-function-and-a-cost-function" title="Link to this heading">#</a></h2>
-<p>A loss function is for a single training example. It is also sometimes called an error function. A cost function, on the other hand, is the average loss over the entire training dataset. The optimization strategies aim at minimizing the cost function.</p>
+<section id="linear-regression-vs-logistic-regression">
+<h2><span class="section-number">3.2. </span>Linear Regression Vs. Logistic regression<a class="headerlink" href="#linear-regression-vs-logistic-regression" title="Link to this heading">#</a></h2>
+<figure class="align-default" id="logistic-regression-infographic">
+<a class="reference internal image-reference" href="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/ml-fundamentals/ml-regression/logistic-regression/difference%20between%20linear%20and%20logistic.png"><img alt="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/ml-fundamentals/ml-regression/logistic-regression/difference%20between%20linear%20and%20logistic.png" src="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/ml-fundamentals/ml-regression/logistic-regression/difference%20between%20linear%20and%20logistic.png" style="width: 80%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 3.1 </span><span class="caption-text">Infographic by <a class="reference external" href="https://www.datacamp.com/tutorial/understanding-logistic-regression-python">Radar</a></span><a class="headerlink" href="#logistic-regression-infographic" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Linear regression gives you a continuous output, but logistic regression provides a constant output. An example of the continuous output is house price and stock price. Example’s of the discrete output is predicting whether a patient has cancer or not, predicting whether the customer will churn. Linear regression is estimated using Ordinary Least Squares (OLS) while logistic regression is estimated using Maximum Likelihood Estimation (MLE) approach.</p>
 </section>
-<section id="regression-loss-functions">
-<h2><span class="section-number">4.3. </span>Regression Loss Functions<a class="headerlink" href="#regression-loss-functions" title="Link to this heading">#</a></h2>
-<section id="squared-error-loss">
-<h3><span class="section-number">4.3.1. </span>Squared Error Loss<a class="headerlink" href="#squared-error-loss" title="Link to this heading">#</a></h3>
-<p>Squared Error loss for each training example,
-also known as <strong>L2 Loss</strong>, is the square of the
-difference between the actual and the predicted values:</p>
-<div class="math notranslate nohighlight">
-\[L = (y - f(x))^2\]</div>
-<p>The corresponding cost function is the
-Mean of these Squared Errors (MSE).</p>
-</section>
-<section id="absolute-error-loss">
-<h3><span class="section-number">4.3.2. </span>Absolute Error Loss<a class="headerlink" href="#absolute-error-loss" title="Link to this heading">#</a></h3>
-<p>Absolute Error for each training example
-is the distance between the predicted and the actual values,
-irrespective of the sign. Absolute Error is also
-known as the <strong>L1 loss</strong>:</p>
-<div class="math notranslate nohighlight">
-\[L = \lvert y - f(x) \rvert\]</div>
-<p>The corresponding cost function is the Mean of these Absolute Errors (MAE).</p>
-</section>
-</section>
-<section id="classification-loss-functions">
-<h2><span class="section-number">4.4. </span>Classification Loss Functions<a class="headerlink" href="#classification-loss-functions" title="Link to this heading">#</a></h2>
-<section id="binary-cross-entropy-loss">
-<h3><span class="section-number">4.4.1. </span>Binary Cross Entropy Loss<a class="headerlink" href="#binary-cross-entropy-loss" title="Link to this heading">#</a></h3>
-<p>Cross-entropy is the default loss function to use for binary classification problems.</p>
-<p>It is intended for use with binary classification where the target values are in the set {0, 1}.</p>
-<p>Mathematically, it is the preferred loss function
-under the inference framework of maximum likelihood.
-It is the loss function to be evaluated first and only
-changed if you have a good reason.</p>
-<p>Cross-entropy will calculate a score that summarizes
-the average difference between the actual and predicted
-probability distributions for predicting class 1.
-The score is minimized and a perfect cross-entropy value is 0.</p>
-<p>This YouTube video by Andrew Ng explains very well Binary Cross Entropy Loss (make sure
-that you have access to YouTube for this web page to render correctly):</p>
-<div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">HTML</span>
-
-<span class="n">display</span><span class="p">(</span>
-    <span class="n">HTML</span><span class="p">(</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">&lt;p style=&quot;text-align: center;&quot;&gt;</span>
-<span class="sd">&lt;iframe src=&quot;https://www.youtube.com/embed/SHEPb1JHw5o&quot; width=&quot;105%&quot; height=&quot;700px;&quot; style=&quot;border:none;&quot;&gt;&lt;/iframe&gt;</span>
-<span class="sd">video. &lt;a href=&quot;https://www.youtube.com/embed/SHEPb1JHw5o&quot;&gt;[source]&lt;/a&gt;</span>
-<span class="sd">&lt;/p&gt;</span>
-<span class="sd">&quot;&quot;&quot;</span>
-    <span class="p">)</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</details>
-<div class="cell_output docutils container">
-<div class="output text_html">
-<p style="text-align: center;">
-<iframe src="https://www.youtube.com/embed/SHEPb1JHw5o" width="105%" height="700px;" style="border:none;"></iframe>
-video. <a href="https://www.youtube.com/embed/SHEPb1JHw5o">[source]</a>
-</p>
-</div></div>
-</div>
-</section>
-<section id="multi-class-cross-entropy-loss">
-<h3><span class="section-number">4.4.2. </span>Multi-Class Cross-Entropy Loss<a class="headerlink" href="#multi-class-cross-entropy-loss" title="Link to this heading">#</a></h3>
-<p>Cross-entropy is the default loss function to
-use for multi-class classification problems.</p>
-<p>In this case, it is intended for use with
-multi-class classification where the target values
-are in the set {0, 1, 3, …, n}, where each class is
-assigned a unique integer value.</p>
-<p>Mathematically, it is the preferred loss
-function under the inference framework of
-maximum likelihood. It is the loss function
-to be evaluated first and only changed if you have a good reason.</p>
-<p>Cross-entropy will calculate a score that
-summarizes the average difference between
-the actual and predicted probability distributions
-for all classes in the problem. The score is minimized
-and a perfect cross-entropy value is 0.</p>
-</section>
-</section>
-<section id="optional-at-the-frontier-of-machine-learning-research">
-<h2><span class="section-number">4.5. </span>[optional] At the frontier of Machine Learning Research<a class="headerlink" href="#optional-at-the-frontier-of-machine-learning-research" title="Link to this heading">#</a></h2>
-<div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">HTML</span>
-
-<span class="n">display</span><span class="p">(</span>
-    <span class="n">HTML</span><span class="p">(</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">&lt;p style=&quot;text-align: center;&quot;&gt;</span>
-<span class="sd">&lt;iframe src=&quot;https://www.youtube.com/embed/QBbC3Cjsnjg&quot; width=&quot;105%&quot; height=&quot;700px;&quot; style=&quot;border:none;&quot;&gt;&lt;/iframe&gt;</span>
-<span class="sd">video. &lt;a href=&quot;https://www.youtube.com/embed/QBbC3Cjsnjg&quot;&gt;[source]&lt;/a&gt;</span>
-<span class="sd">&lt;/p&gt;</span>
-<span class="sd">&quot;&quot;&quot;</span>
-    <span class="p">)</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</details>
-<div class="cell_output docutils container">
-<div class="output text_html">
-<p style="text-align: center;">
-<iframe src="https://www.youtube.com/embed/QBbC3Cjsnjg" width="105%" height="700px;" style="border:none;"></iframe>
-video. <a href="https://www.youtube.com/embed/QBbC3Cjsnjg">[source]</a>
-</p>
-</div></div>
-</div>
-<p>With its corresponding paper: <a class="reference external" href="https://arxiv.org/abs/1701.03077">A General and Adaptive Robust Loss Function</a></p>
-</section>
-<section id="bibliography">
-<h2><span class="section-number">4.6. </span>Bibliography<a class="headerlink" href="#bibliography" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p><a class="reference external" href="https://ml-cheatsheet.readthedocs.io/en/latest/loss_functions.html">ML cheat sheet for loss functions</a></p></li>
-<li><p><a class="reference external" href="https://www.youtube.com/watch?v=ErfnhcEV1O8">A Short Introduction to Entropy, Cross-Entropy and KL-Divergence</a></p></li>
-</ul>
-</section>
-<section id="your-turn">
-<h2><span class="section-number">4.7. </span>Your turn! 🚀<a class="headerlink" href="#your-turn" title="Link to this heading">#</a></h2>
-<p>Please complete the following tasks:
-<a class="reference internal" href="#../../assignments/ml-fundamentals/linear-regression/loss-function.ipynb"><span class="xref myst">loss-function</span></a></p>
+<section id="types-of-logistic-regression">
+<h2><span class="section-number">3.3. </span>Types of Logistic Regression<a class="headerlink" href="#types-of-logistic-regression" title="Link to this heading">#</a></h2>
+<p>Logistic Regression model can be classified into three groups based on the target variable categories. These three groups are described below:</p>
+<p><strong>Binary Logistic Regression</strong></p>
+<p>In Binary Logistic Regression, the target variable has two possible categories. The common examples of categories are yes or no, good or bad, true or false, spam or no spam and pass or fail.</p>
+<p><strong>Multinomial Logistic Regression</strong></p>
+<p>In Multinomial Logistic Regression, the target variable has three or more categories which are not in any particular order. So, there are three or more nominal categories. The examples include the type of categories of fruits - apple, mango, orange and banana.</p>
+<p><strong>Ordinal Logistic Regression</strong></p>
+<p>In Ordinal Logistic Regression, the target variable has three or more ordinal categories. So, there is intrinsic order involved with the categories. For example, the student performance can be categorized as poor, average, good and excellent.</p>
 </section>
 </section>
 
@@ -659,7 +521,7 @@ video. <a href="https://www.youtube.com/embed/QBbC3Cjsnjg">[source]</a>
         },
         kernelOptions: {
             name: "python3",
-            path: "./ml-book/Parameter-Optimization"
+            path: "./ml-book/Regression-Models"
         },
         predefinedOutput: true
     }
@@ -677,20 +539,20 @@ video. <a href="https://www.youtube.com/embed/QBbC3Cjsnjg">[source]</a>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../Regression-Models/Logistic-regression.html"
+       href="Polynomial-regression.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><span class="section-number">3. </span>Logistic Regression</p>
+        <p class="prev-next-title"><span class="section-number">2. </span>Polynomial Regression</p>
       </div>
     </a>
     <a class="right-next"
-       href="gradient-descent.html"
+       href="../Parameter-Optimization/loss-function.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">5. </span>Gradient descent</p>
+        <p class="prev-next-title"><span class="section-number">4. </span>Loss function</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -710,21 +572,9 @@ video. <a href="https://www.youtube.com/embed/QBbC3Cjsnjg">[source]</a>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objective-of-this-section">4.1. Objective of this section</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#whats-the-difference-between-a-loss-function-and-a-cost-function">4.2. What’s the Difference between a Loss Function and a Cost Function?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regression-loss-functions">4.3. Regression Loss Functions</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#squared-error-loss">4.3.1. Squared Error Loss</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#absolute-error-loss">4.3.2. Absolute Error Loss</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classification-loss-functions">4.4. Classification Loss Functions</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#binary-cross-entropy-loss">4.4.1. Binary Cross Entropy Loss</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-class-cross-entropy-loss">4.4.2. Multi-Class Cross-Entropy Loss</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-at-the-frontier-of-machine-learning-research">4.5. [optional] At the frontier of Machine Learning Research</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bibliography">4.6. Bibliography</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#your-turn">4.7. Your turn! 🚀</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">3.1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-regression-vs-logistic-regression">3.2. Linear Regression Vs. Logistic regression</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#types-of-logistic-regression">3.3. Types of Logistic Regression</a></li>
 </ul>
   </nav></div>
 

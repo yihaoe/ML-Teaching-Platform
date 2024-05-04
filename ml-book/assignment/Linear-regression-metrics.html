@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>11. Linear Regression Metrics &#8212; ML-book</title>
+    <title>12. Linear Regression Metrics &#8212; ML-book</title>
   
   
   
@@ -64,7 +64,8 @@
     <link rel="icon" href="../../_static/fav.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="prev" title="10. Polynomial Regression from Scratch" href="polynomial-regression-from-scratch.html" />
+    <link rel="next" title="13. ML logistic regression - assignment 2" href="Logistic-regression.html" />
+    <link rel="prev" title="11. Polynomial Regression from Scratch" href="polynomial-regression-from-scratch.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -175,24 +176,26 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../Regression-Models/Univariate-linear-regression.html">1. Univariate linear regression</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Regression-Models/Polynomial-regression.html">2. Polynomial Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Regression-Models/Logistic-regression.html">3. Logistic Regression</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Parameter Optimization</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../Parameter-Optimization/loss-function.html">3. Loss function</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Parameter-Optimization/gradient-descent.html">4. Gradient descent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Parameter-Optimization/loss-function.html">4. Loss function</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Parameter-Optimization/gradient-descent.html">5. Gradient descent</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Assignments</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../Assignments/linear-regression-metrics.html">5. Linear Regression Metrics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Assignments/loss-function.html">6. Loss Function</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Assignments/gradient-descent.html">7. Gradient descent</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Assignments/polynomial-regression-from-scratch.html">8. Polynomial Regression  from Scratch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Assignments/linear-regression-metrics.html">6. Linear Regression Metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Assignments/loss-function.html">7. Loss Function</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Assignments/gradient-descent.html">8. Gradient descent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Assignments/polynomial-regression-from-scratch.html">9. Polynomial Regression  from Scratch</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">assignment</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="simple-linear-regression.html">9. Simple Linear Regression</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polynomial-regression-from-scratch.html">10. Polynomial Regression  from Scratch</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">11. Linear Regression Metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple-linear-regression.html">10. Simple Linear Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polynomial-regression-from-scratch.html">11. Polynomial Regression  from Scratch</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">12. Linear Regression Metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Logistic-regression.html">13. ML logistic regression - assignment 2</a></li>
 </ul>
 
     </div>
@@ -454,14 +457,14 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-squared-error-mse">11.1. Mean Squared Error (MSE)</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-formula">11.1.1. The Formula</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#python-implementation">11.1.2. Python Implementation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-squared-error-mse">12.1. Mean Squared Error (MSE)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-formula">12.1.1. The Formula</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#python-implementation">12.1.2. Python Implementation</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#r-squared-r2-score">11.2. R-squared (R2) Score</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">11.2.1. The Formula</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">11.2.2. Python Implementation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#r-squared-r2-score">12.2. R-squared (R2) Score</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">12.2.1. The Formula</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">12.2.2. Python Implementation</a></li>
 </ul>
 </li>
 </ul>
@@ -490,12 +493,12 @@ document.write(`
 </div>
 </div>
 <section class="tex2jax_ignore mathjax_ignore" id="linear-regression-metrics">
-<h1><span class="section-number">11. </span>Linear Regression Metrics<a class="headerlink" href="#linear-regression-metrics" title="Link to this heading">#</a></h1>
+<h1><span class="section-number">12. </span>Linear Regression Metrics<a class="headerlink" href="#linear-regression-metrics" title="Link to this heading">#</a></h1>
 <section id="mean-squared-error-mse">
-<h2><span class="section-number">11.1. </span>Mean Squared Error (MSE)<a class="headerlink" href="#mean-squared-error-mse" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">12.1. </span>Mean Squared Error (MSE)<a class="headerlink" href="#mean-squared-error-mse" title="Link to this heading">#</a></h2>
 <p>In the realm of linear regression metrics, one fundamental measure of model performance is the <strong>Mean Squared Error (MSE)</strong>. MSE serves as a valuable indicator of how well your linear regression model aligns its predictions with the actual data points. This metric quantifies the average of the squared differences between predicted values and observed values.</p>
 <section id="the-formula">
-<h3><span class="section-number">11.1.1. </span>The Formula<a class="headerlink" href="#the-formula" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">12.1.1. </span>The Formula<a class="headerlink" href="#the-formula" title="Link to this heading">#</a></h3>
 <p>Mathematically, the MSE is computed using the following formula:</p>
 <div class="math notranslate nohighlight">
 \[ MSE = \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 \]</div>
@@ -507,7 +510,7 @@ document.write(`
 </ul>
 </section>
 <section id="python-implementation">
-<h3><span class="section-number">11.1.2. </span>Python Implementation<a class="headerlink" href="#python-implementation" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">12.1.2. </span>Python Implementation<a class="headerlink" href="#python-implementation" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">mean_squared_error</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">):</span>
@@ -573,10 +576,10 @@ class Test_MSE:
 </section>
 </section>
 <section id="r-squared-r2-score">
-<h2><span class="section-number">11.2. </span>R-squared (R2) Score<a class="headerlink" href="#r-squared-r2-score" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">12.2. </span>R-squared (R2) Score<a class="headerlink" href="#r-squared-r2-score" title="Link to this heading">#</a></h2>
 <p>The R-squared (R2) score, also known as the coefficient of determination, is a measure that indicates the proportion of the variance in the dependent variable that is predictable from the independent variables. It provides insight into how well the model is performing compared to a simple mean.</p>
 <section id="id1">
-<h3><span class="section-number">11.2.1. </span>The Formula<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">12.2.1. </span>The Formula<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
 <p>The formula for R2 score is:</p>
 <div class="math notranslate nohighlight">
 \[ R^2 = 1 - \frac{\sum_{i=1}^{n} (y_i - \hat{y}_i)^2}{\sum_{i=1}^{n} (y_i - \bar{y})^2} \]</div>
@@ -589,7 +592,7 @@ class Test_MSE:
 </ul>
 </section>
 <section id="id2">
-<h3><span class="section-number">11.2.2. </span>Python Implementation<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">12.2.2. </span>Python Implementation<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">r2_score</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">):</span>
@@ -692,8 +695,17 @@ class Test_r2_score:
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><span class="section-number">10. </span>Polynomial Regression  from Scratch</p>
+        <p class="prev-next-title"><span class="section-number">11. </span>Polynomial Regression  from Scratch</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="Logistic-regression.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">13. </span>ML logistic regression - assignment 2</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>
@@ -711,14 +723,14 @@ class Test_r2_score:
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-squared-error-mse">11.1. Mean Squared Error (MSE)</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-formula">11.1.1. The Formula</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#python-implementation">11.1.2. Python Implementation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-squared-error-mse">12.1. Mean Squared Error (MSE)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-formula">12.1.1. The Formula</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#python-implementation">12.1.2. Python Implementation</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#r-squared-r2-score">11.2. R-squared (R2) Score</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">11.2.1. The Formula</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">11.2.2. Python Implementation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#r-squared-r2-score">12.2. R-squared (R2) Score</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">12.2.1. The Formula</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">12.2.2. Python Implementation</a></li>
 </ul>
 </li>
 </ul>

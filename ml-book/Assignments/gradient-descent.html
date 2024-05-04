@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>7. Gradient descent &#8212; ML-book</title>
+    <title>8. Gradient descent &#8212; ML-book</title>
   
   
   
@@ -64,8 +64,8 @@
     <link rel="icon" href="../../_static/fav.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="8. Polynomial Regression from Scratch" href="polynomial-regression-from-scratch.html" />
-    <link rel="prev" title="6. Loss Function" href="loss-function.html" />
+    <link rel="next" title="9. Polynomial Regression from Scratch" href="polynomial-regression-from-scratch.html" />
+    <link rel="prev" title="7. Loss Function" href="loss-function.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -176,24 +176,26 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../Regression-Models/Univariate-linear-regression.html">1. Univariate linear regression</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Regression-Models/Polynomial-regression.html">2. Polynomial Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Regression-Models/Logistic-regression.html">3. Logistic Regression</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Parameter Optimization</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../Parameter-Optimization/loss-function.html">3. Loss function</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Parameter-Optimization/gradient-descent.html">4. Gradient descent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Parameter-Optimization/loss-function.html">4. Loss function</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Parameter-Optimization/gradient-descent.html">5. Gradient descent</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Assignments</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="linear-regression-metrics.html">5. Linear Regression Metrics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="loss-function.html">6. Loss Function</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">7. Gradient descent</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polynomial-regression-from-scratch.html">8. Polynomial Regression  from Scratch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="linear-regression-metrics.html">6. Linear Regression Metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="loss-function.html">7. Loss Function</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">8. Gradient descent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polynomial-regression-from-scratch.html">9. Polynomial Regression  from Scratch</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">assignment</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../assignment/simple-linear-regression.html">9. Simple Linear Regression</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../assignment/polynomial-regression-from-scratch.html">10. Polynomial Regression  from Scratch</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../assignment/Linear-regression-metrics.html">11. Linear Regression Metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../assignment/simple-linear-regression.html">10. Simple Linear Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../assignment/polynomial-regression-from-scratch.html">11. Polynomial Regression  from Scratch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../assignment/Linear-regression-metrics.html">12. Linear Regression Metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../assignment/Logistic-regression.html">13. ML logistic regression - assignment 2</a></li>
 </ul>
 
     </div>
@@ -455,22 +457,22 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#session-objective">7.1. Session Objective</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#let-s-explore-and-gain-intuition">7.2. Let’s Explore and Gain Intuition</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#math-feel-free-to-skip-if-you-find-it-difficult">7.2.1. Math (feel free to skip if you find it difficult)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#partial-derivatives">7.2.2. Partial Derivatives</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#partial-derivative-with-respect-to-m">7.2.3. Partial Derivative with Respect to <span class="math notranslate nohighlight">\(m\)</span></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#partial-derivative-with-respect-to-b">7.2.4. Partial Derivative with Respect to <span class="math notranslate nohighlight">\(b\)</span></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-final-function">7.2.5. The Final Function</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#session-objective">8.1. Session Objective</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#let-s-explore-and-gain-intuition">8.2. Let’s Explore and Gain Intuition</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#math-feel-free-to-skip-if-you-find-it-difficult">8.2.1. Math (feel free to skip if you find it difficult)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#partial-derivatives">8.2.2. Partial Derivatives</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#partial-derivative-with-respect-to-m">8.2.3. Partial Derivative with Respect to <span class="math notranslate nohighlight">\(m\)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#partial-derivative-with-respect-to-b">8.2.4. Partial Derivative with Respect to <span class="math notranslate nohighlight">\(b\)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-final-function">8.2.5. The Final Function</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#time-to-code">7.3. Time to code!</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#one-dimensional-gradient-descent">7.4. 1. One-dimensional gradient descent</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#let-s-try">7.4.1. Let’s try!</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#time-to-code">8.3. Time to code!</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#one-dimensional-gradient-descent">8.4. 1. One-dimensional gradient descent</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#let-s-try">8.4.1. Let’s try!</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#two-dimensional-gradient-descent">7.5. 2. Two-dimensional gradient descent</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">7.5.1. Let’s try!</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#two-dimensional-gradient-descent">8.5. 2. Two-dimensional gradient descent</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">8.5.1. Let’s try!</a></li>
 </ul>
 </li>
 </ul>
@@ -485,9 +487,9 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="gradient-descent">
-<h1><span class="section-number">7. </span>Gradient descent<a class="headerlink" href="#gradient-descent" title="Link to this heading">#</a></h1>
+<h1><span class="section-number">8. </span>Gradient descent<a class="headerlink" href="#gradient-descent" title="Link to this heading">#</a></h1>
 <section id="session-objective">
-<h2><span class="section-number">7.1. </span>Session Objective<a class="headerlink" href="#session-objective" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">8.1. </span>Session Objective<a class="headerlink" href="#session-objective" title="Link to this heading">#</a></h2>
 <p>In previous sessions, we’ve delved into the application of Linear Regression and Logistic Regression models. You may find the code relatively straightforward and intuitive at this point. However, you might be pondering questions like:</p>
 <ul class="simple">
 <li><p>What exactly occurs when we invoke the <code class="docutils literal notranslate"><span class="pre">.fit()</span></code> function?</p></li>
@@ -496,7 +498,7 @@ document.write(`
 <p>This session is designed to provide insight into the functionality of the <code class="docutils literal notranslate"><span class="pre">.fit()</span></code> method, which is responsible for training machine learning models and fine-tuning model parameters. The underlying technique at play here is known as “Gradient Descent.”</p>
 </section>
 <section id="let-s-explore-and-gain-intuition">
-<h2><span class="section-number">7.2. </span>Let’s Explore and Gain Intuition<a class="headerlink" href="#let-s-explore-and-gain-intuition" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">8.2. </span>Let’s Explore and Gain Intuition<a class="headerlink" href="#let-s-explore-and-gain-intuition" title="Link to this heading">#</a></h2>
 <p>To further enhance your understanding and gain a playful insight into Gradient Descent, you can explore the following resources:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/lilipads/gradient_descent_viz">Gradient Descent Visualization</a>: This GitHub repository offers a visualization of the Gradient Descent algorithm, which can be a valuable resource for understanding the optimization process.</p></li>
@@ -504,7 +506,7 @@ document.write(`
 </ul>
 <p>These resources will help you build an intuitive grasp of Gradient Descent and its role in training machine learning models. Enjoy your exploration!</p>
 <section id="math-feel-free-to-skip-if-you-find-it-difficult">
-<h3><span class="section-number">7.2.1. </span>Math (feel free to skip if you find it difficult)<a class="headerlink" href="#math-feel-free-to-skip-if-you-find-it-difficult" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">8.2.1. </span>Math (feel free to skip if you find it difficult)<a class="headerlink" href="#math-feel-free-to-skip-if-you-find-it-difficult" title="Link to this heading">#</a></h3>
 <p>The fundamental concept behind gradient descent is rather straightforward: it involves the gradual adjustment of parameters, such as the slope (<span class="math notranslate nohighlight">\(m\)</span>) and the intercept (<span class="math notranslate nohighlight">\(b\)</span>) in our regression equation $y = mx + b, with the aim of minimizing a cost function. This cost function is typically a metric that quantifies the disparity between our model’s predicted results and the actual values. In regression scenarios, the widely employed cost function is the <code class="docutils literal notranslate"><span class="pre">mean</span> <span class="pre">squared</span> <span class="pre">error</span></code> (MSE). When dealing with classification problems, a different set of parameters must be fine-tuned.</p>
 <p>The MSE (Mean Squared Error) is mathematically expressed as:</p>
 <div class="math notranslate nohighlight">
@@ -515,7 +517,7 @@ MSE = \frac{1}{n}\sum_{i=1}^{n} (y_i - \hat{y_i})^2
 <p>Our primary challenge is to determine the optimal adjustments to parameters <span class="math notranslate nohighlight">\(m\)</span> and $b” to minimize the MSE effectively.</p>
 </section>
 <section id="partial-derivatives">
-<h3><span class="section-number">7.2.2. </span>Partial Derivatives<a class="headerlink" href="#partial-derivatives" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">8.2.2. </span>Partial Derivatives<a class="headerlink" href="#partial-derivatives" title="Link to this heading">#</a></h3>
 <p>In our pursuit of minimizing the Mean Squared Error (MSE), we turn to partial derivatives to understand how each individual parameter influences the MSE. The term “partial” signifies that we are taking derivatives with respect to individual parameters, in this case, <span class="math notranslate nohighlight">\(m\)</span> and $b, separately.</p>
 <p>Consider the following formula, which closely resembles the MSE, but now we’ve introduced the function <span class="math notranslate nohighlight">\(f(m, b)\)</span> into it. The addition of this function doesn’t significantly alter the essence of the calculation, but it allows us to input specific values for <span class="math notranslate nohighlight">\(m\)</span> and <span class="math notranslate nohighlight">\(b\)</span> to compute the result.</p>
 <div class="math notranslate nohighlight">
@@ -523,7 +525,7 @@ MSE = \frac{1}{n}\sum_{i=1}^{n} (y_i - \hat{y_i})^2
 <p>For the purposes of calculating partial derivatives, we can temporarily disregard the summation and the terms preceding it, focusing solely on the expression <span class="math notranslate nohighlight">\(y - (mx + b)^2\)</span>. This expression serves as a better starting point for the subsequent partial derivative calculations.</p>
 </section>
 <section id="partial-derivative-with-respect-to-m">
-<h3><span class="section-number">7.2.3. </span>Partial Derivative with Respect to <span class="math notranslate nohighlight">\(m\)</span><a class="headerlink" href="#partial-derivative-with-respect-to-m" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">8.2.3. </span>Partial Derivative with Respect to <span class="math notranslate nohighlight">\(m\)</span><a class="headerlink" href="#partial-derivative-with-respect-to-m" title="Link to this heading">#</a></h3>
 <p>When we calculate the partial derivative with respect to the parameter <span class="math notranslate nohighlight">\(m,&quot; we isolate the parameter \)</span>m” and treat <span class="math notranslate nohighlight">\(b\)</span> as a constant (effectively setting it to 0 for differentiation purposes). To compute this derivative, we utilize the chain rule, which is a fundamental concept in calculus.</p>
 <p>The chain rule is expressed as follows:</p>
 <div class="math notranslate nohighlight">
@@ -548,7 +550,7 @@ MSE = \frac{1}{n}\sum_{i=1}^{n} (y_i - \hat{y_i})^2
 <p>Here, <span class="math notranslate nohighlight">\(\frac{df}{dm}\)</span> signifies the partial derivative of function <span class="math notranslate nohighlight">\(f\)</span> (as previously defined) with respect to the parameter <span class="math notranslate nohighlight">\(m\)</span>. We can now insert this derivative into our summation to complete the calculation.</p>
 </section>
 <section id="partial-derivative-with-respect-to-b">
-<h3><span class="section-number">7.2.4. </span>Partial Derivative with Respect to <span class="math notranslate nohighlight">\(b\)</span><a class="headerlink" href="#partial-derivative-with-respect-to-b" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">8.2.4. </span>Partial Derivative with Respect to <span class="math notranslate nohighlight">\(b\)</span><a class="headerlink" href="#partial-derivative-with-respect-to-b" title="Link to this heading">#</a></h3>
 <p>The process for computing the partial derivative with respect to the parameter <span class="math notranslate nohighlight">\(b&quot; is analogous to our previous derivation with respect to \)</span>m. We still apply the same rules and utilize the chain rule:</p>
 <ol class="arabic simple">
 <li><p>The derivative of <span class="math notranslate nohighlight">\(()^2\)</span> is <span class="math notranslate nohighlight">\(2()\)</span>, which corresponds to how <span class="math notranslate nohighlight">\(x^2\)</span> becomes <span class="math notranslate nohighlight">\(2x\)</span>.</p></li>
@@ -567,7 +569,7 @@ MSE = \frac{1}{n}\sum_{i=1}^{n} (y_i - \hat{y_i})^2
 <p>Similarly to the previous case, <span class="math notranslate nohighlight">\(\frac{df}{db}\)</span> represents the partial derivative of function <span class="math notranslate nohighlight">\(f\)</span> with respect to the parameter $b”. Inserting this derivative into our summation concludes the computation.</p>
 </section>
 <section id="the-final-function">
-<h3><span class="section-number">7.2.5. </span>The Final Function<a class="headerlink" href="#the-final-function" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">8.2.5. </span>The Final Function<a class="headerlink" href="#the-final-function" title="Link to this heading">#</a></h3>
 <p>Before delving into the code, there are a few essential details to address:</p>
 <ol class="arabic simple">
 <li><p>Gradient descent is an iterative process, and with each iteration (referred to as an “epoch”), we incrementally reduce the Mean Squared Error (MSE). At each iteration, we apply our derived functions to update the values of parameters <span class="math notranslate nohighlight">\(m\)</span> and <span class="math notranslate nohighlight">\(b\)</span>.</p></li>
@@ -578,7 +580,7 @@ MSE = \frac{1}{n}\sum_{i=1}^{n} (y_i - \hat{y_i})^2
 </section>
 </section>
 <section id="time-to-code">
-<h2><span class="section-number">7.3. </span>Time to code!<a class="headerlink" href="#time-to-code" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">8.3. </span>Time to code!<a class="headerlink" href="#time-to-code" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
@@ -595,7 +597,7 @@ MSE = \frac{1}{n}\sum_{i=1}^{n} (y_i - \hat{y_i})^2
 </div>
 </section>
 <section id="one-dimensional-gradient-descent">
-<h2><span class="section-number">7.4. </span>1. One-dimensional gradient descent<a class="headerlink" href="#one-dimensional-gradient-descent" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">8.4. </span>1. One-dimensional gradient descent<a class="headerlink" href="#one-dimensional-gradient-descent" title="Link to this heading">#</a></h2>
 <p>One-dimensional gradient descent is a simple optimization algorithm used to find the minimum (or maximum) of a univariate function.</p>
 <p>Here are the main steps:</p>
 <blockquote>
@@ -654,7 +656,7 @@ MSE = \frac{1}{n}\sum_{i=1}^{n} (y_i - \hat{y_i})^2
 </div>
 </div>
 <section id="let-s-try">
-<h3><span class="section-number">7.4.1. </span>Let’s try!<a class="headerlink" href="#let-s-try" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">8.4.1. </span>Let’s try!<a class="headerlink" href="#let-s-try" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the target function</span>
@@ -724,7 +726,7 @@ MSE = \frac{1}{n}\sum_{i=1}^{n} (y_i - \hat{y_i})^2
 </section>
 </section>
 <section id="two-dimensional-gradient-descent">
-<h2><span class="section-number">7.5. </span>2. Two-dimensional gradient descent<a class="headerlink" href="#two-dimensional-gradient-descent" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">8.5. </span>2. Two-dimensional gradient descent<a class="headerlink" href="#two-dimensional-gradient-descent" title="Link to this heading">#</a></h2>
 <p>Two-dimensional gradient descent is an optimization algorithm used to find the minimum (or maximum) of a function with two input variables.</p>
 <p>Here are the main steps:</p>
 <blockquote>
@@ -791,7 +793,7 @@ MSE = \frac{1}{n}\sum_{i=1}^{n} (y_i - \hat{y_i})^2
 </div>
 </div>
 <section id="id1">
-<h3><span class="section-number">7.5.1. </span>Let’s try!<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">8.5.1. </span>Let’s try!<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the target function</span>
@@ -907,7 +909,7 @@ MSE = \frac{1}{n}\sum_{i=1}^{n} (y_i - \hat{y_i})^2
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><span class="section-number">6. </span>Loss Function</p>
+        <p class="prev-next-title"><span class="section-number">7. </span>Loss Function</p>
       </div>
     </a>
     <a class="right-next"
@@ -915,7 +917,7 @@ MSE = \frac{1}{n}\sum_{i=1}^{n} (y_i - \hat{y_i})^2
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">8. </span>Polynomial Regression  from Scratch</p>
+        <p class="prev-next-title"><span class="section-number">9. </span>Polynomial Regression  from Scratch</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -935,22 +937,22 @@ MSE = \frac{1}{n}\sum_{i=1}^{n} (y_i - \hat{y_i})^2
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#session-objective">7.1. Session Objective</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#let-s-explore-and-gain-intuition">7.2. Let’s Explore and Gain Intuition</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#math-feel-free-to-skip-if-you-find-it-difficult">7.2.1. Math (feel free to skip if you find it difficult)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#partial-derivatives">7.2.2. Partial Derivatives</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#partial-derivative-with-respect-to-m">7.2.3. Partial Derivative with Respect to <span class="math notranslate nohighlight">\(m\)</span></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#partial-derivative-with-respect-to-b">7.2.4. Partial Derivative with Respect to <span class="math notranslate nohighlight">\(b\)</span></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-final-function">7.2.5. The Final Function</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#session-objective">8.1. Session Objective</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#let-s-explore-and-gain-intuition">8.2. Let’s Explore and Gain Intuition</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#math-feel-free-to-skip-if-you-find-it-difficult">8.2.1. Math (feel free to skip if you find it difficult)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#partial-derivatives">8.2.2. Partial Derivatives</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#partial-derivative-with-respect-to-m">8.2.3. Partial Derivative with Respect to <span class="math notranslate nohighlight">\(m\)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#partial-derivative-with-respect-to-b">8.2.4. Partial Derivative with Respect to <span class="math notranslate nohighlight">\(b\)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-final-function">8.2.5. The Final Function</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#time-to-code">7.3. Time to code!</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#one-dimensional-gradient-descent">7.4. 1. One-dimensional gradient descent</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#let-s-try">7.4.1. Let’s try!</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#time-to-code">8.3. Time to code!</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#one-dimensional-gradient-descent">8.4. 1. One-dimensional gradient descent</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#let-s-try">8.4.1. Let’s try!</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#two-dimensional-gradient-descent">7.5. 2. Two-dimensional gradient descent</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">7.5.1. Let’s try!</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#two-dimensional-gradient-descent">8.5. 2. Two-dimensional gradient descent</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">8.5.1. Let’s try!</a></li>
 </ul>
 </li>
 </ul>
