@@ -24,8 +24,7 @@ parts:
   - caption: assignment
     numbered: True
     chapters:
-    - file: ml-book/assignment/first-assignment
     - file: ml-book/assignment/simple-linear-regression
     - file: ml-book/assignment/polynomial-regression-from-scratch
-    - file: ml-book/assignment/MSE
+    - file: ml-book/assignment/Linear-regression-metrics
 
