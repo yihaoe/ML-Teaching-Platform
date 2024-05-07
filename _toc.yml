@@ -15,13 +15,13 @@ parts:
     chapters:
       - file: ml-book/Parameter-Optimization/loss-function
       - file: ml-book/Parameter-Optimization/gradient-descent
-  - caption: Assignments
-    numbered: True
-    chapters:
-    - file: ml-book/Assignments/linear-regression-metrics
-    - file: ml-book/Assignments/loss-function
-    - file: ml-book/Assignments/gradient-descent
-    - file: ml-book/Assignments/polynomial-regression-from-scratch
+  #- caption: Assignments
+  #  numbered: True
+  #  chapters:
+  #  - file: ml-book/Assignments/linear-regression-metrics
+  #  - file: ml-book/Assignments/loss-function
+  #  - file: ml-book/Assignments/gradient-descent
+  #  - file: ml-book/Assignments/polynomial-regression-from-scratch
   - caption: assignment
     numbered: True
     chapters:
