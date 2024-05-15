@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>4. Loss function &#8212; ML-book</title>
+    <title>5. Loss function &#8212; ML-book</title>
   
   
   
@@ -64,8 +64,8 @@
     <link rel="icon" href="../../_static/fav.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="5. Gradient descent" href="gradient-descent.html" />
-    <link rel="prev" title="3. Logistic Regression" href="../Regression-Models/Logistic-regression.html" />
+    <link rel="next" title="6. Gradient descent" href="gradient-descent.html" />
+    <link rel="prev" title="4. Logistic Regression" href="../Regression-Models/Logistic-regression.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -176,19 +176,20 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../Regression-Models/Univariate-linear-regression.html">1. Univariate linear regression</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Regression-Models/Polynomial-regression.html">2. Polynomial Regression</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Regression-Models/Logistic-regression.html">3. Logistic Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Regression-Models/linear-regression-from-scratch.html">3. Linear Regression Implementation from Scratch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Regression-Models/Logistic-regression.html">4. Logistic Regression</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Parameter Optimization</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">4. Loss function</a></li>
-<li class="toctree-l1"><a class="reference internal" href="gradient-descent.html">5. Gradient descent</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">5. Loss function</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gradient-descent.html">6. Gradient descent</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">assignment</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../assignment/simple-linear-regression.html">6. Simple Linear Regression</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../assignment/polynomial-regression-from-scratch.html">7. Polynomial Regression  from Scratch</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../assignment/Linear-regression-metrics.html">8. Linear Regression Metrics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../assignment/Logistic-regression.html">9. ML logistic regression - assignment 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../assignment/simple-linear-regression.html">7. Simple Linear Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../assignment/polynomial-regression-from-scratch.html">8. Polynomial Regression  from Scratch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../assignment/Linear-regression-metrics.html">9. Linear Regression Metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../assignment/Logistic-regression.html">10. ML logistic regression - assignment 2</a></li>
 </ul>
 
     </div>
@@ -450,21 +451,21 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objective-of-this-section">4.1. Objective of this section</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#whats-the-difference-between-a-loss-function-and-a-cost-function">4.2. What’s the Difference between a Loss Function and a Cost Function?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regression-loss-functions">4.3. Regression Loss Functions</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#squared-error-loss">4.3.1. Squared Error Loss</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#absolute-error-loss">4.3.2. Absolute Error Loss</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objective-of-this-section">5.1. Objective of this section</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#whats-the-difference-between-a-loss-function-and-a-cost-function">5.2. What’s the Difference between a Loss Function and a Cost Function?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regression-loss-functions">5.3. Regression Loss Functions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#squared-error-loss">5.3.1. Squared Error Loss</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#absolute-error-loss">5.3.2. Absolute Error Loss</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classification-loss-functions">4.4. Classification Loss Functions</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#binary-cross-entropy-loss">4.4.1. Binary Cross Entropy Loss</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-class-cross-entropy-loss">4.4.2. Multi-Class Cross-Entropy Loss</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classification-loss-functions">5.4. Classification Loss Functions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#binary-cross-entropy-loss">5.4.1. Binary Cross Entropy Loss</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-class-cross-entropy-loss">5.4.2. Multi-Class Cross-Entropy Loss</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-at-the-frontier-of-machine-learning-research">4.5. [optional] At the frontier of Machine Learning Research</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bibliography">4.6. Bibliography</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#your-turn">4.7. Your turn! 🚀</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-at-the-frontier-of-machine-learning-research">5.5. [optional] At the frontier of Machine Learning Research</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bibliography">5.6. Bibliography</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#your-turn">5.7. Your turn! 🚀</a></li>
 </ul>
             </nav>
         </div>
@@ -488,22 +489,22 @@ document.write(`
 </div>
 </div>
 <section class="tex2jax_ignore mathjax_ignore" id="loss-function">
-<h1><span class="section-number">4. </span>Loss function<a class="headerlink" href="#loss-function" title="Link to this heading">#</a></h1>
+<h1><span class="section-number">5. </span>Loss function<a class="headerlink" href="#loss-function" title="Link to this heading">#</a></h1>
 <p>The function we want to minimize or maximize is called the objective function or criterion. When we are minimizing it, we may also call it the cost function, loss function, or error function.</p>
 <p>— Deep Learning, Ian Goodfellow, Yoshua Bengio, Aaron Courville</p>
 <section id="objective-of-this-section">
-<h2><span class="section-number">4.1. </span>Objective of this section<a class="headerlink" href="#objective-of-this-section" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">5.1. </span>Objective of this section<a class="headerlink" href="#objective-of-this-section" title="Link to this heading">#</a></h2>
 <p>We have already learned math and code for “Gradient Descent”, as well as other optimization techniques.</p>
 <p>In this section, we will learn more about loss functions for Linear Regression and Logistic Regression.</p>
 </section>
 <section id="whats-the-difference-between-a-loss-function-and-a-cost-function">
-<h2><span class="section-number">4.2. </span>What’s the Difference between a Loss Function and a Cost Function?<a class="headerlink" href="#whats-the-difference-between-a-loss-function-and-a-cost-function" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">5.2. </span>What’s the Difference between a Loss Function and a Cost Function?<a class="headerlink" href="#whats-the-difference-between-a-loss-function-and-a-cost-function" title="Link to this heading">#</a></h2>
 <p>A loss function is for a single training example. It is also sometimes called an error function. A cost function, on the other hand, is the average loss over the entire training dataset. The optimization strategies aim at minimizing the cost function.</p>
 </section>
 <section id="regression-loss-functions">
-<h2><span class="section-number">4.3. </span>Regression Loss Functions<a class="headerlink" href="#regression-loss-functions" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">5.3. </span>Regression Loss Functions<a class="headerlink" href="#regression-loss-functions" title="Link to this heading">#</a></h2>
 <section id="squared-error-loss">
-<h3><span class="section-number">4.3.1. </span>Squared Error Loss<a class="headerlink" href="#squared-error-loss" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">5.3.1. </span>Squared Error Loss<a class="headerlink" href="#squared-error-loss" title="Link to this heading">#</a></h3>
 <p>Squared Error loss for each training example,
 also known as <strong>L2 Loss</strong>, is the square of the
 difference between the actual and the predicted values:</p>
@@ -513,7 +514,7 @@ difference between the actual and the predicted values:</p>
 Mean of these Squared Errors (MSE).</p>
 </section>
 <section id="absolute-error-loss">
-<h3><span class="section-number">4.3.2. </span>Absolute Error Loss<a class="headerlink" href="#absolute-error-loss" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">5.3.2. </span>Absolute Error Loss<a class="headerlink" href="#absolute-error-loss" title="Link to this heading">#</a></h3>
 <p>Absolute Error for each training example
 is the distance between the predicted and the actual values,
 irrespective of the sign. Absolute Error is also
@@ -524,9 +525,9 @@ known as the <strong>L1 loss</strong>:</p>
 </section>
 </section>
 <section id="classification-loss-functions">
-<h2><span class="section-number">4.4. </span>Classification Loss Functions<a class="headerlink" href="#classification-loss-functions" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">5.4. </span>Classification Loss Functions<a class="headerlink" href="#classification-loss-functions" title="Link to this heading">#</a></h2>
 <section id="binary-cross-entropy-loss">
-<h3><span class="section-number">4.4.1. </span>Binary Cross Entropy Loss<a class="headerlink" href="#binary-cross-entropy-loss" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">5.4.1. </span>Binary Cross Entropy Loss<a class="headerlink" href="#binary-cross-entropy-loss" title="Link to this heading">#</a></h3>
 <p>Cross-entropy is the default loss function to use for binary classification problems.</p>
 <p>It is intended for use with binary classification where the target values are in the set {0, 1}.</p>
 <p>Mathematically, it is the preferred loss function
@@ -572,7 +573,7 @@ video. <a href="https://www.youtube.com/embed/SHEPb1JHw5o">[source]</a>
 </div>
 </section>
 <section id="multi-class-cross-entropy-loss">
-<h3><span class="section-number">4.4.2. </span>Multi-Class Cross-Entropy Loss<a class="headerlink" href="#multi-class-cross-entropy-loss" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">5.4.2. </span>Multi-Class Cross-Entropy Loss<a class="headerlink" href="#multi-class-cross-entropy-loss" title="Link to this heading">#</a></h3>
 <p>Cross-entropy is the default loss function to
 use for multi-class classification problems.</p>
 <p>In this case, it is intended for use with
@@ -591,7 +592,7 @@ and a perfect cross-entropy value is 0.</p>
 </section>
 </section>
 <section id="optional-at-the-frontier-of-machine-learning-research">
-<h2><span class="section-number">4.5. </span>[optional] At the frontier of Machine Learning Research<a class="headerlink" href="#optional-at-the-frontier-of-machine-learning-research" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">5.5. </span>[optional] At the frontier of Machine Learning Research<a class="headerlink" href="#optional-at-the-frontier-of-machine-learning-research" title="Link to this heading">#</a></h2>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -626,14 +627,14 @@ video. <a href="https://www.youtube.com/embed/QBbC3Cjsnjg">[source]</a>
 <p>With its corresponding paper: <a class="reference external" href="https://arxiv.org/abs/1701.03077">A General and Adaptive Robust Loss Function</a></p>
 </section>
 <section id="bibliography">
-<h2><span class="section-number">4.6. </span>Bibliography<a class="headerlink" href="#bibliography" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">5.6. </span>Bibliography<a class="headerlink" href="#bibliography" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://ml-cheatsheet.readthedocs.io/en/latest/loss_functions.html">ML cheat sheet for loss functions</a></p></li>
 <li><p><a class="reference external" href="https://www.youtube.com/watch?v=ErfnhcEV1O8">A Short Introduction to Entropy, Cross-Entropy and KL-Divergence</a></p></li>
 </ul>
 </section>
 <section id="your-turn">
-<h2><span class="section-number">4.7. </span>Your turn! 🚀<a class="headerlink" href="#your-turn" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">5.7. </span>Your turn! 🚀<a class="headerlink" href="#your-turn" title="Link to this heading">#</a></h2>
 <p>Please complete the following tasks:
 <a class="reference internal" href="#../../assignments/ml-fundamentals/linear-regression/loss-function.ipynb"><span class="xref myst">loss-function</span></a></p>
 </section>
@@ -675,7 +676,7 @@ video. <a href="https://www.youtube.com/embed/QBbC3Cjsnjg">[source]</a>
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><span class="section-number">3. </span>Logistic Regression</p>
+        <p class="prev-next-title"><span class="section-number">4. </span>Logistic Regression</p>
       </div>
     </a>
     <a class="right-next"
@@ -683,7 +684,7 @@ video. <a href="https://www.youtube.com/embed/QBbC3Cjsnjg">[source]</a>
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">5. </span>Gradient descent</p>
+        <p class="prev-next-title"><span class="section-number">6. </span>Gradient descent</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -703,21 +704,21 @@ video. <a href="https://www.youtube.com/embed/QBbC3Cjsnjg">[source]</a>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objective-of-this-section">4.1. Objective of this section</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#whats-the-difference-between-a-loss-function-and-a-cost-function">4.2. What’s the Difference between a Loss Function and a Cost Function?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regression-loss-functions">4.3. Regression Loss Functions</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#squared-error-loss">4.3.1. Squared Error Loss</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#absolute-error-loss">4.3.2. Absolute Error Loss</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objective-of-this-section">5.1. Objective of this section</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#whats-the-difference-between-a-loss-function-and-a-cost-function">5.2. What’s the Difference between a Loss Function and a Cost Function?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regression-loss-functions">5.3. Regression Loss Functions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#squared-error-loss">5.3.1. Squared Error Loss</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#absolute-error-loss">5.3.2. Absolute Error Loss</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classification-loss-functions">4.4. Classification Loss Functions</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#binary-cross-entropy-loss">4.4.1. Binary Cross Entropy Loss</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-class-cross-entropy-loss">4.4.2. Multi-Class Cross-Entropy Loss</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classification-loss-functions">5.4. Classification Loss Functions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#binary-cross-entropy-loss">5.4.1. Binary Cross Entropy Loss</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-class-cross-entropy-loss">5.4.2. Multi-Class Cross-Entropy Loss</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-at-the-frontier-of-machine-learning-research">4.5. [optional] At the frontier of Machine Learning Research</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bibliography">4.6. Bibliography</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#your-turn">4.7. Your turn! 🚀</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-at-the-frontier-of-machine-learning-research">5.5. [optional] At the frontier of Machine Learning Research</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bibliography">5.6. Bibliography</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#your-turn">5.7. Your turn! 🚀</a></li>
 </ul>
   </nav></div>
 
