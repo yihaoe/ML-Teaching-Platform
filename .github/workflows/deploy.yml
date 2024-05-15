@@ -2,7 +2,7 @@ name: deploy
 
 on:
   # Trigger the workflow on push to main branch
-  push:
+  pull_request:
     branches:
       - main
 
